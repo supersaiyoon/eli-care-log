@@ -1,4 +1,5 @@
 # stdlib
+from datetime import datetime
 import os
 
 # Third-party
@@ -17,6 +18,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # ORM handle; models will subclass db.Model later.
 db = SQLAlchemy(app)
+
+class Diaper(db.Model):
+    __tablename__ = "diapers"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
 
 # ---- Sanity route
 @app.get("/")
