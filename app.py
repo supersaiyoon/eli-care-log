@@ -5,6 +5,7 @@ import os
 # Third-party
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Enum
 
 # ---- App + config
 app = Flask(__name__)
@@ -23,7 +24,11 @@ class Diaper(db.Model):
     __tablename__ = "diapers"
     
     id = db.Column(db.Integer, primary_key=True)
-    
+    date_time = db.Column(db.DateTime, nullable=False)
+    type = db.Column(Enum("wet", "BM", name="diaper_type"), nullable=False)
+    size = db.Column(Enum("S", "M", "L", name="diaper_size"), nullable=False)
+    initials = db.Column(db.String(2), nullable=False)
+    notes = db.Column(db.Text)    
 
 # ---- Sanity route
 @app.get("/")
@@ -32,5 +37,9 @@ def ping():
 
 # Dev server entry point.
 if __name__ == "__main__":
+    # One-time table creation; only creates missing tables.
+    with app.app_context():
+        db.create_all()
+
     # debug=True auto reloads on code changes.
     app.run(host="127.0.0.1", port=5000, debug=True)
