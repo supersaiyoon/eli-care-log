@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+  <h3 class="mb-3">Diaper entries</h3>
+  <div class="mb-3">
+    <a class="btn btn-primary" href="{{ url_for('new_diaper_form') }}">New entry</a>
+  </div>
+
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>Time</th><th>Type</th><th>Size</th><th>Initials</th><th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in rows %}
+      <tr>
+        <td>{{ x.dt.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ x.type }}</td>
+        <td>{{ x.size }}</td>
+        <td>{{ x.initials }}</td>
+        <td>{{ x.notes or '' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-muted">No entries yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block body %}
+  <h3 class="mb-3">New diaper entry</h3>
+  <form method="post" class="vstack gap-3">
+    <div>
+      <label class="form-label">Time</label>
+      <input class="form-control" type="datetime-local" name="dt" required>
+    </div>
+
+    <div>
+      <label class="form-label">Type</label>
+      <select class="form-select" name="type" required>
+        <option value="wet">wet</option>
+        <option value="bm">bm</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="form-label">Size</label>
+      <select class="form-select" name="size" required>
+        <option value="S">Small</option>
+        <option value="M">Medium</option>
+        <option value="L">Large</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="form-label">Initials</label>
+      <input class="form-control" name="initials" maxlength="8" placeholder="AB" required>
+    </div>
+
+    <div>
+      <label class="form-label">Notes</label>
+      <textarea class="form-control" name="notes" rows="2"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('list_diapers') }}">Cancel</a>
+  </form>
+{% endblock %}
