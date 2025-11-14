@@ -32,8 +32,8 @@ class Diaper(db.Model):
 
 # ---- Sanity route
 @app.get("/")
-def ping():
-    return "OK"
+def index():
+    return redirect(url_for("list_diapers"))
 
 @app.get("/diapers")
 def list_diapers():
