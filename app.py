@@ -7,7 +7,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Enum
 
-# ---- App + config
+# App + config
 app = Flask(__name__)
 
 # Keep secrets out of code; falls back to "dev" if env var not set.
@@ -25,12 +25,18 @@ class Diaper(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     dt = db.Column(db.DateTime, nullable=False)
-    type = db.Column(Enum("wet", "bm", name="diaper_type"), nullable=False)
-    size = db.Column(Enum("S", "M", "L", name="diaper_size"), nullable=False)
+    diaper_type = db.Column(
+        Enum("wet", "bm", name="diaper_type"),
+        nullable=False
+    )
+    diaper_size = db.Column(
+        Enum("S", "M", "L", name="diaper_size"),
+        nullable=False
+    )
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)    
 
-# ---- Sanity route
+# Sanity route
 @app.get("/")
 def index():
     return redirect(url_for("list_diapers"))
@@ -46,16 +52,21 @@ def new_diaper_form():
 
 @app.post("/diapers/new")
 def create_diaper():
-    # Parse datetime-local string: "YYYY-MM-DDTHH:MM" (seconds optional)
+    # Raw values from form
     raw_dt = request.form["dt"].strip()
-    dt = datetime.fromisoformat(raw_dt)  # Parse datetime-local input
-
-    type_ = request.form["type"]
-    size = request.form["size"]
+    diaper_type = request.form["diaper_type"]
+    diaper_size = request.form["diaper_size"]
     initials = request.form["initials"].strip()
     notes = request.form.get("notes") or None
 
-    row = Diaper(dt=dt, type=type_, size=size, initials=initials, notes=notes)
+    # validate datetime
+    try:
+        dt = datetime.fromisoformat(raw_dt)  # Parse datetime-local input
+    except ValueError:
+        flash("Invalid date/time. Please pick a valid time.")
+        return redirect(url_for("new_diaper_form"))
+
+    row = Diaper(dt=dt, diaper_type=diaper_type, diaper_size=diaper_size, initials=initials, notes=notes)
     db.session.add(row)
     db.session.commit()
 

@@ -15,8 +15,8 @@
       {% for x in rows %}
       <tr>
         <td>{{ x.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-        <td>{{ x.type }}</td>
-        <td>{{ x.size }}</td>
+        <td>{{ x.diaper_type }}</td>
+        <td>{{ x.diaper_size }}</td>
         <td>{{ x.initials }}</td>
         <td>{{ x.notes or '' }}</td>
       </tr>
