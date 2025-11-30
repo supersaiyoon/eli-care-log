@@ -73,6 +73,14 @@ def create_diaper():
     flash("Saved diaper entry.")
     return redirect(url_for("list_diapers"))
 
+@app.post("/diapers/<int:diaper_id>/delete")
+def delete_diaper(diaper_id):
+    diaper = Diaper.query.get_or_404(diaper_id)  # Find entry
+    db.session.delete(diaper)                    # Mark for delete
+    db.session.commit()                          # Save change
+    flash("Diaper entry deleted.", "success")    # Notify user
+    return redirect(url_for("list_diapers"))     # Back to list
+
 # Dev server entry point.
 if __name__ == "__main__":
     # One-time table creation; only creates missing tables.

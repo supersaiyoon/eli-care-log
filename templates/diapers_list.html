@@ -8,20 +8,33 @@
   <table class="table table-striped align-middle">
     <thead>
       <tr>
-        <th>Time</th><th>Type</th><th>Size</th><th>Initials</th><th>Notes</th>
+        <th>Date/Time</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Initials</th>
+        <th>Notes</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {% for x in rows %}
+      {% for d in rows %}
       <tr>
-        <td>{{ x.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-        <td>{{ x.diaper_type }}</td>
-        <td>{{ x.diaper_size }}</td>
-        <td>{{ x.initials }}</td>
-        <td>{{ x.notes or '' }}</td>
+        <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>{{ d.diaper_type }}</td>
+        <td>{{ d.diaper_size }}</td>
+        <td>{{ d.initials }}</td>
+        <td>{{ d.notes or '' }}</td>
+        <td>
+          <form action="{{url_for('delete_diaper', diaper_id=d.id)}}" method="post" class="d-inline">
+            <button type="submit" class="btn btn-sm btn-outline-danger"
+                    onclick="return confirm('Delete this entry?');">
+              Delete
+            </button>
+          </form>
+        </td>
       </tr>
       {% else %}
-      <tr><td colspan="5" class="text-muted">No entries yet.</td></tr>
+      <tr><td colspan="5" class="tedt-muted">No entries yet.</td></tr>
       {% endfor %}
     </tbody>
   </table>
