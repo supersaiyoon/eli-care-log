@@ -56,7 +56,7 @@ def diaper_create():
     raw_dt = request.form["dt"].strip()
     diaper_type = request.form["diaper_type"]
     diaper_size = request.form["diaper_size"]
-    initials = request.form["initials"].strip()
+    initials = request.form["initials"].strip().upper()
     notes = request.form.get("notes") or None
 
     # validate datetime
@@ -86,7 +86,7 @@ def diaper_update(diaper_id):
     raw_dt = request.form["dt"].strip()
     diaper_type = request.form["diaper_type"]
     diaper_size = request.form["diaper_size"]
-    initials = request.form["initials"].strip()
+    initials = request.form["initials"].strip().upper()
     notes = request.form.get("notes") or None
 
     # Validate datetime
