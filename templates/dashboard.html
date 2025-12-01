@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block body %}
+  <h3 class="mb-3">Dashboard</h3>
+  <p class="text-muted">Quick links for now. Stats later.</p>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <a href="{{ url_for('diaper_list') }}" class="card text-decoration-none h-100">
+        <div class="card-body">
+          <h5 class="card-title">Diapers</h5>
+          <p class="card-text text-muted">View and add diaper changes.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{{ url_for('feed_list') }}" class="card text-decoration-none h-100">
+        <div class="card-body">
+          <h5 class="card-title">Feed log</h5>
+          <p class="card-text text-muted">Coming soon.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{{ url_for('vomit_list') }}" class="card text-decoration-none h-100">
+        <div class="card-body">
+          <h5 class="card-title">Throw-up log</h5>
+          <p class="card-text text-muted">Coming soon.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+{% endblock %}

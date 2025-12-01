@@ -8,10 +8,14 @@
   </head>
   <body class="bg-light">
     <nav class="navbar navbar-dark bg-dark mb-4">
-      <div class="container">
-        <a class="navbar-brand" href="{{ url_for('diaper_list') }}">CareLog</a>
-        <div>
-          <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_new') }}">+ Diaper</a>
+      <div class="container d-flex align-items-center justify-content-between">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">CareLog</a>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_list') }}">Diapers</a>
+          <a class="btn btn-outline-light btn-sm" href="{{ url_for('feed_list') }}">Feed log</a>
+          <a class="btn btn-outline-light btn-sm" href="{{ url_for('vomit_list') }}">Throw-up log</a>
+          <a class="btn btn-light btn-sm" href="{{ url_for('diaper_new') }}">+ Diaper</a>
         </div>
       </div>
     </nav>

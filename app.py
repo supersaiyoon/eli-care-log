@@ -36,10 +36,9 @@ class Diaper(db.Model):
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)    
 
-# Sanity route
 @app.get("/")
-def index():
-    return redirect(url_for("diaper_list"))
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.get("/diaper")
 def diaper_list():
@@ -115,6 +114,18 @@ def diaper_delete(diaper_id):
     db.session.commit()                          # Save change
     flash("Diaper entry deleted.", "success")    # Notify user
     return redirect(url_for("diaper_list"))      # Back to list
+
+@app.get("/feed")
+def feed_list():
+    # Placeholder page
+    return render_template("feed_list.html")
+
+
+@app.get("/vomit")
+def vomit_list():
+    # Placeholder page
+    return render_template("vomit_list.html")
+
 
 # Dev server entry point.
 if __name__ == "__main__":
