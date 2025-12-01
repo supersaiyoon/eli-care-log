@@ -26,7 +26,7 @@ class Diaper(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     dt = db.Column(db.DateTime, nullable=False)
     diaper_type = db.Column(
-        Enum("wet", "bm", name="diaper_type"),
+        Enum("Wet", "BM", name="diaper_type"),
         nullable=False
     )
     diaper_size = db.Column(
