@@ -73,6 +73,41 @@ def diaper_create():
     flash("Saved diaper entry.")
     return redirect(url_for("diaper_list"))
 
+@app.get("/diaper/<int:diaper_id>/edit")
+def diaper_edit(diaper_id):
+    row = Diaper.query.get_or_404(diaper_id)
+    return render_template("diaper_edit.html", row=row)
+
+@app.post("/diaper/<int:diaper_id>/edit")
+def diaper_update(diaper_id):
+    row = Diaper.query.get_or_404(diaper_id)
+
+    # Raw values from form
+    raw_dt = request.form["dt"].strip()
+    diaper_type = request.form["diaper_type"]
+    diaper_size = request.form["diaper_size"]
+    initials = request.form["initials"].strip()
+    notes = request.form.get("notes") or None
+
+    # Validate datetime
+    try:
+        dt = datetime.fromisoformat(raw_dt)
+    except ValueError:
+        flash("Invalid date/time. Please pick a valid time.")
+        return redirect(url_for("diaper_edit", diaper_id=diaper_id))
+
+    # Apply updates
+    row.dt = dt
+    row.diaper_type = diaper_type
+    row.diaper_size = diaper_size
+    row.initials = initials
+    row.notes = notes
+
+    db.session.commit()
+
+    flash("Diaper entry updated.")
+    return redirect(url_for("diaper_list"))
+
 @app.post("/diaper/<int:diaper_id>/delete")
 def diaper_delete(diaper_id):
     diaper = Diaper.query.get_or_404(diaper_id)  # Find entry
