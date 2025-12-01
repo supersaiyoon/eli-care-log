@@ -2,7 +2,7 @@
 {% block body %}
   <h3 class="mb-3">Diaper entries</h3>
   <div class="mb-3">
-    <a class="btn btn-primary" href="{{ url_for('new_diaper_form') }}">New entry</a>
+    <a class="btn btn-primary" href="{{ url_for('diaper_new') }}">New entry</a>
   </div>
 
   <table class="table table-striped align-middle">
@@ -25,7 +25,7 @@
         <td>{{ d.initials }}</td>
         <td>{{ d.notes or '' }}</td>
         <td>
-          <form action="{{url_for('delete_diaper', diaper_id=d.id)}}" method="post" class="d-inline">
+          <form action="{{url_for('diaper_delete', diaper_id=d.id)}}" method="post" class="d-inline">
             <button type="submit" class="btn btn-sm btn-outline-danger"
                     onclick="return confirm('Delete this entry?');">
               Delete

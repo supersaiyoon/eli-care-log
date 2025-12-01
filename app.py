@@ -39,19 +39,19 @@ class Diaper(db.Model):
 # Sanity route
 @app.get("/")
 def index():
-    return redirect(url_for("list_diapers"))
+    return redirect(url_for("diaper_list"))
 
-@app.get("/diapers")
-def list_diapers():
+@app.get("/diaper")
+def diaper_list():
     rows = Diaper.query.order_by(Diaper.dt.desc()).all()
-    return render_template("diapers_list.html", rows=rows)
+    return render_template("diaper_list.html", rows=rows)
 
-@app.get("/diapers/new")
-def new_diaper_form():
-    return render_template("diapers_new.html")
+@app.get("/diaper/new")
+def diaper_new():
+    return render_template("diaper_new.html")
 
-@app.post("/diapers/new")
-def create_diaper():
+@app.post("/diaper/new")
+def diaper_create():
     # Raw values from form
     raw_dt = request.form["dt"].strip()
     diaper_type = request.form["diaper_type"]
@@ -64,22 +64,22 @@ def create_diaper():
         dt = datetime.fromisoformat(raw_dt)  # Parse datetime-local input
     except ValueError:
         flash("Invalid date/time. Please pick a valid time.")
-        return redirect(url_for("new_diaper_form"))
+        return redirect(url_for("diaper_new"))
 
     row = Diaper(dt=dt, diaper_type=diaper_type, diaper_size=diaper_size, initials=initials, notes=notes)
     db.session.add(row)
     db.session.commit()
 
     flash("Saved diaper entry.")
-    return redirect(url_for("list_diapers"))
+    return redirect(url_for("diaper_list"))
 
-@app.post("/diapers/<int:diaper_id>/delete")
-def delete_diaper(diaper_id):
+@app.post("/diaper/<int:diaper_id>/delete")
+def diaper_delete(diaper_id):
     diaper = Diaper.query.get_or_404(diaper_id)  # Find entry
     db.session.delete(diaper)                    # Mark for delete
     db.session.commit()                          # Save change
     flash("Diaper entry deleted.", "success")    # Notify user
-    return redirect(url_for("list_diapers"))     # Back to list
+    return redirect(url_for("diaper_list"))      # Back to list
 
 # Dev server entry point.
 if __name__ == "__main__":
