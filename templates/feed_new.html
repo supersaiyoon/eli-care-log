@@ -4,12 +4,12 @@
   <form method="post" class="vstack gap-3">
     <div>
       <label class="form-label">Date</label>
-      <input class="form-control" type="date" name="date" required>
+      <input class="form-control" type="date" name="date" value="{{ today }}" required>
     </div>
 
     <div>
       <label class="form-label">Feed No.</label>
-      <input class="form-control" type="number" name="feed_num" maxlength="2" required>
+      <input class="form-control" type="number" name="feed_num" maxlength="2" value="{{ next_feed_num }}" required>
     </div>
 
     <div>

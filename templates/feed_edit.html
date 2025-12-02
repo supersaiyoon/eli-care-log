@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block body %}
+    <h3 class="mb-3">Edit feed entry</h3>
+    <form method="post"
+          action="{{ url_for('feed_update', feed_id=row.id) }}"
+          class="vstack gap-3">
+
+        <div>
+            <label class="form-label">Date</label>
+            <input class="form-control"
+                    type="date"
+                    name="date"
+                    value="{{ row.date }}"
+                    required>
+        </div>
+
+        <div>
+            <label class="form-label">Feed No.</label>
+            <input class="form-control"
+                    type="number"
+                    name="feed_num"
+                    maxlength="2"
+                    value="{{ row.feed_num }}"
+                    required>
+        </div>
+
+        <div>
+        <label class="form-label">Start Time</label>
+        <input class="form-control"
+                type="time"
+                name="start_time"
+                value="{{ row.start_time }}"
+                required>
+        </div>
+
+        <div>
+            <label class="form-label">End Time</label>
+            <input class="form-control"
+                    type="time"
+                    name="end_time"
+                    value="{{ row.end_time }}"
+                    required>
+        </div>
+
+        <div>
+            <label class="form-label">Volume (mL)</label>
+            <input class="form-control"
+                    type="number"
+                    name="feed_vol_ml"
+                    maxlength="4"
+                    value="{{ row.feed_vol_ml }}"
+                    required>
+        </div>
+
+        <div>
+            <label class="form-label">Rate (mL/hr)</label>
+            <input class="form-control"
+                    type="number"
+                    name="feed_rate"
+                    maxlength="3"
+                    value="{{ row.feed_rate }}"
+                    required>
+        </div>
+
+        <div>
+            <label class="form-label">Notes</label>
+            <textarea class="form-control"
+                        name="notes"
+                        rows="2">{{ row.notes or "" }}
+            </textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save changes</button>
+        <a class="btn btn-outline-secondary"
+            href="{{ url_for('feed_list') }}">Cancel</a>
+    </form>
+{% endblock %}

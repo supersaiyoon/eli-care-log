@@ -4,6 +4,7 @@ import os
 
 # Third-party
 from flask import Flask, flash, redirect, render_template, request, url_for
+from sqlalchemy import func
 
 # Local
 from models import db, Diaper, Feed
@@ -103,23 +104,39 @@ def feed_list():
 
 @app.get("/feed/new")
 def feed_new():
-    return render_template("feed_new.html")
+    # Pre-fill date field with today's date
+    today = date.today().isoformat()
+
+    # Pre-fill feed number field with next feed number
+    last_feed_num = db.session.query(func.max(Feed.feed_num)).scalar()
+    next_feed_num = (last_feed_num or 0) + 1
+
+    return render_template(
+        "feed_new.html",
+        today=today,
+        next_feed_num=next_feed_num
+    )
 
 @app.post("/feed/new")
 def feed_create():
     # Raw values from form
     feed_date_str = request.form["date"]
-    feed_num = request.form["feed_num"].strip()
+    feed_num_str = request.form["feed_num"].strip()
     start_time_str = request.form["start_time"]
     end_time_str = request.form["end_time"]
-    feed_vol_ml = request.form["feed_vol_ml"].strip()
-    feed_rate = request.form["feed_rate"].strip()
+    feed_vol_ml_str = request.form["feed_vol_ml"].strip()
+    feed_rate_str = request.form["feed_rate"].strip()
     notes = request.form.get("notes") or None
 
-    # SQLite Date type must be Python date object
+    # SQLite Date type must be Python date object for table
     feed_date = date.fromisoformat(feed_date_str)
 
-    # SQLite Time type must be Python time object
+    # Ensure inputs are stored as integers
+    feed_num = int(feed_num_str)
+    feed_vol_ml = int(feed_vol_ml_str)
+    feed_rate = int(feed_rate_str)
+
+    # SQLite Time type must be Python time object for table
     start_time = time.fromisoformat(start_time_str)
     end_time = time.fromisoformat(end_time_str)
 
@@ -138,43 +155,59 @@ def feed_create():
 
     flash("Saved feed entry.", "success")
     return redirect(url_for("feed_list"))
-'''
-@app.get("/feed/<int:diaper_id>/edit")
-def diaper_edit(diaper_id):
-    row = Diaper.query.get_or_404(diaper_id)
-    return render_template("diaper_edit.html", row=row)
 
-@app.post("/feed/<int:diaper_id>/edit")
-def diaper_update(diaper_id):
-    row = Diaper.query.get_or_404(diaper_id)
+@app.get("/feed/<int:feed_id>/edit")
+def feed_edit(feed_id):
+    row = Feed.query.get_or_404(feed_id)
+    return render_template("feed_edit.html", row=row)
+
+@app.post("/feed/<int:feed_id>/edit")
+def feed_update(feed_id):
+    row = Feed.query.get_or_404(feed_id)
 
     # Raw values from form
-    raw_dt = request.form["dt"].strip()
-    diaper_type = request.form["diaper_type"]
-    diaper_size = request.form["diaper_size"]
-    initials = request.form["initials"].strip().upper()
+    feed_date_str = request.form["date"]
+    feed_num_str = request.form["feed_num"].strip()
+    start_time_str = request.form["start_time"]
+    end_time_str = request.form["end_time"]
+    feed_vol_ml_str = request.form["feed_vol_ml"].strip()
+    feed_rate_str = request.form["feed_rate"].strip()
     notes = request.form.get("notes") or None
 
+    # SQLite Date type must be Python date object for table
+    feed_date = date.fromisoformat(feed_date_str)
+
+    # Ensure inputs are stored as integers
+    feed_num = int(feed_num_str)
+    feed_vol_ml = int(feed_vol_ml_str)
+    feed_rate = int(feed_rate_str)
+
+    # SQLite Time type must be Python time object for table
+    start_time = time.fromisoformat(start_time_str)
+    end_time = time.fromisoformat(end_time_str)
+
     # Apply updates
-    row.dt = raw_dt
-    row.diaper_type = diaper_type
-    row.diaper_size = diaper_size
-    row.initials = initials
+    row.date = feed_date
+    row.feed_num = feed_num
+    row.start_time = start_time
+    row.end_time = end_time    
+    row.feed_vol_ml = feed_vol_ml
+    row.feed_rate = feed_rate
     row.notes = notes
 
     db.session.commit()
 
-    flash("Diaper entry updated.")
-    return redirect(url_for("diaper_list"))
+    flash("Feed entry updated.")
+    return redirect(url_for("feed_list"))
 
-@app.post("/feed/<int:diaper_id>/delete")
-def diaper_delete(diaper_id):
-    diaper = Diaper.query.get_or_404(diaper_id)  # Find entry
-    db.session.delete(diaper)                    # Mark for delete
-    db.session.commit()                          # Save change
-    flash("Diaper entry deleted.", "success")    # Notify user
-    return redirect(url_for("diaper_list"))      # Back to list
-'''
+@app.post("/feed/<int:feed_id>/delete")
+def feed_delete(feed_id):
+    row = Feed.query.get_or_404(feed_id)     # Find entry
+    db.session.delete(row)                   # Mark for delete
+    db.session.commit()                      # Save change
+    flash("Feed entry deleted.", "success")  # Notify user
+    return redirect(url_for("feed_list"))    # Back to list
+
 
 # Vomit log GET/POST routes
 @app.get("/vomit")
