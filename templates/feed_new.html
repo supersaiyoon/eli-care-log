@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block body %}
+  <h3 class="mb-3">New feed entry</h3>
+  <form method="post" class="vstack gap-3">
+    <div>
+      <label class="form-label">Date</label>
+      <input class="form-control" type="date" name="date" required>
+    </div>
+
+    <div>
+      <label class="form-label">Feed No.</label>
+      <input class="form-control" type="number" name="feed_num" maxlength="2" required>
+    </div>
+
+    <div>
+      <label class="form-label">Start Time</label>
+      <input class="form-control" type="time" name="start_time" required>
+    </div>
+
+    <div>
+      <label class="form-label">End Time</label>
+      <input class="form-control" type="time" name="end_time" required>
+    </div>
+
+    <div>
+      <label class="form-label">Volume (mL)</label>
+      <input class="form-control" type="number" name="feed_vol_ml" maxlength="4" required>
+    </div>
+
+    <div>
+      <label class="form-label">Rate (mL/hr)</label>
+      <input class="form-control" type="number" name="feed_rate" maxlength="3" required>
+    </div>
+
+    <div>
+      <label class="form-label">Notes</label>
+      <textarea class="form-control" name="notes" rows="2"></textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('feed_list') }}">Cancel</a>
+  </form>
+{% endblock %}

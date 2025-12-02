@@ -1,12 +1,12 @@
 # stdlib
-from datetime import datetime
+from datetime import datetime, date, time
 import os
 
 # Third-party
 from flask import Flask, flash, redirect, render_template, request, url_for
 
 # Local
-from models import db, Diaper
+from models import db, Diaper, Feed
 
 # App + config
 app = Flask(__name__)
@@ -25,6 +25,7 @@ db.init_app(app)
 def dashboard():
     return render_template("dashboard.html")
 
+# Diaper log GET/POST routes
 @app.get("/diaper")
 def diaper_list():
     rows = Diaper.query.order_by(Diaper.dt.desc()).all()
@@ -73,15 +74,8 @@ def diaper_update(diaper_id):
     initials = request.form["initials"].strip().upper()
     notes = request.form.get("notes") or None
 
-    # Validate datetime
-    try:
-        dt = datetime.fromisoformat(raw_dt)
-    except ValueError:
-        flash("Invalid date/time. Please pick a valid time.")
-        return redirect(url_for("diaper_edit", diaper_id=diaper_id))
-
     # Apply updates
-    row.dt = dt
+    row.dt = raw_dt
     row.diaper_type = diaper_type
     row.diaper_size = diaper_size
     row.initials = initials
@@ -100,12 +94,89 @@ def diaper_delete(diaper_id):
     flash("Diaper entry deleted.", "success")    # Notify user
     return redirect(url_for("diaper_list"))      # Back to list
 
+
+# Feed log GET/POST routes
 @app.get("/feed")
 def feed_list():
-    # Placeholder page
-    return render_template("feed_list.html")
+    rows = Feed.query.order_by(Feed.date.desc(), Feed.feed_num.desc()).all()
+    return render_template("feed_list.html", rows=rows)
 
+@app.get("/feed/new")
+def feed_new():
+    return render_template("feed_new.html")
 
+@app.post("/feed/new")
+def feed_create():
+    # Raw values from form
+    feed_date_str = request.form["date"]
+    feed_num = request.form["feed_num"].strip()
+    start_time_str = request.form["start_time"]
+    end_time_str = request.form["end_time"]
+    feed_vol_ml = request.form["feed_vol_ml"].strip()
+    feed_rate = request.form["feed_rate"].strip()
+    notes = request.form.get("notes") or None
+
+    # SQLite Date type must be Python date object
+    feed_date = date.fromisoformat(feed_date_str)
+
+    # SQLite Time type must be Python time object
+    start_time = time.fromisoformat(start_time_str)
+    end_time = time.fromisoformat(end_time_str)
+
+    row = Feed(
+        date=feed_date,
+        feed_num=feed_num,
+        start_time=start_time,
+        end_time=end_time,
+        feed_vol_ml=feed_vol_ml,
+        feed_rate=feed_rate,
+        notes=notes
+    )
+    
+    db.session.add(row)
+    db.session.commit()
+
+    flash("Saved feed entry.", "success")
+    return redirect(url_for("feed_list"))
+'''
+@app.get("/feed/<int:diaper_id>/edit")
+def diaper_edit(diaper_id):
+    row = Diaper.query.get_or_404(diaper_id)
+    return render_template("diaper_edit.html", row=row)
+
+@app.post("/feed/<int:diaper_id>/edit")
+def diaper_update(diaper_id):
+    row = Diaper.query.get_or_404(diaper_id)
+
+    # Raw values from form
+    raw_dt = request.form["dt"].strip()
+    diaper_type = request.form["diaper_type"]
+    diaper_size = request.form["diaper_size"]
+    initials = request.form["initials"].strip().upper()
+    notes = request.form.get("notes") or None
+
+    # Apply updates
+    row.dt = raw_dt
+    row.diaper_type = diaper_type
+    row.diaper_size = diaper_size
+    row.initials = initials
+    row.notes = notes
+
+    db.session.commit()
+
+    flash("Diaper entry updated.")
+    return redirect(url_for("diaper_list"))
+
+@app.post("/feed/<int:diaper_id>/delete")
+def diaper_delete(diaper_id):
+    diaper = Diaper.query.get_or_404(diaper_id)  # Find entry
+    db.session.delete(diaper)                    # Mark for delete
+    db.session.commit()                          # Save change
+    flash("Diaper entry deleted.", "success")    # Notify user
+    return redirect(url_for("diaper_list"))      # Back to list
+'''
+
+# Vomit log GET/POST routes
 @app.get("/vomit")
 def vomit_list():
     # Placeholder page

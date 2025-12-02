@@ -27,6 +27,6 @@ class Feed(db.Model):
     feed_num = db.Column(db.Integer, autoincrement=True)
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
-    feed_vol = db.Column(db.Integer, nullable=False)
+    feed_vol_ml = db.Column(db.Integer, nullable=False)
     feed_rate = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
