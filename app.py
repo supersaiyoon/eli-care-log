@@ -4,8 +4,9 @@ import os
 
 # Third-party
 from flask import Flask, flash, redirect, render_template, request, url_for
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Enum
+
+# Local
+from models import db, Diaper
 
 # App + config
 app = Flask(__name__)
@@ -17,24 +18,8 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///carelog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# ORM handle; models will subclass db.Model later.
-db = SQLAlchemy(app)
-
-class Diaper(db.Model):
-    __tablename__ = "diapers"
-    
-    id = db.Column(db.Integer, primary_key=True)
-    dt = db.Column(db.DateTime, nullable=False)
-    diaper_type = db.Column(
-        Enum("Wet", "BM", name="diaper_type"),
-        nullable=False
-    )
-    diaper_size = db.Column(
-        Enum("S", "M", "L", name="diaper_size"),
-        nullable=False
-    )
-    initials = db.Column(db.String(2), nullable=False)
-    notes = db.Column(db.Text)    
+# Bind db to app
+db.init_app(app)
 
 @app.get("/")
 def dashboard():
@@ -58,9 +43,9 @@ def diaper_create():
     initials = request.form["initials"].strip().upper()
     notes = request.form.get("notes") or None
 
-    # validate datetime
+    # Validate datetime
     try:
-        dt = datetime.fromisoformat(raw_dt)  # Parse datetime-local input
+        dt = datetime.fromisoformat(raw_dt)
     except ValueError:
         flash("Invalid date/time. Please pick a valid time.")
         return redirect(url_for("diaper_new"))
@@ -69,7 +54,7 @@ def diaper_create():
     db.session.add(row)
     db.session.commit()
 
-    flash("Saved diaper entry.")
+    flash("Saved diaper entry.", "success")
     return redirect(url_for("diaper_list"))
 
 @app.get("/diaper/<int:diaper_id>/edit")
