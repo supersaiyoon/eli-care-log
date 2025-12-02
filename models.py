@@ -18,3 +18,15 @@ class Diaper(db.Model):
     )
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)
+
+class Feed(db.Model):
+    __tablename__ = "feed"
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    feed_num = db.Column(db.Integer, autoincrement=True)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    feed_vol = db.Column(db.Integer, nullable=False)
+    feed_rate = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.Text)
