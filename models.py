@@ -41,6 +41,8 @@ class Medication(db.Model):
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)
 
+# TODO: Implement Sleep model
+
 class Vomit(db.Model):
     __tablename__ = "vomit"
 

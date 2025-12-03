@@ -9,6 +9,7 @@ from models import db
 from routes.diaper_routes import init_diaper_routes
 from routes.feed_routes import init_feed_routes
 from routes.medication_routes import init_medication_routes
+from routes.sleep_routes import init_sleep_routes
 from routes.vomit_routes import init_vomit_routes
 
 
@@ -30,6 +31,7 @@ db.init_app(app)
 init_diaper_routes(app)
 init_feed_routes(app)
 init_medication_routes(app)
+init_sleep_routes(app)
 init_vomit_routes(app)
 
 @app.get("/")
