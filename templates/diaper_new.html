@@ -1,40 +1,47 @@
 {% extends "base.html" %}
 {% block body %}
-  <h3 class="mb-3">New diaper entry</h3>
-  <form method="post" class="vstack gap-3">
-    <div>
-      <label class="form-label">Time</label>
-      <input class="form-control" type="datetime-local" name="dt" required>
-    </div>
+    <h3 class="mb-3">New diaper entry</h3>
+    <form method="post" class="vstack gap-3">
+        <div>
+            <label class="form-label">Time</label>
+            <input class="form-control" type="datetime-local" name="dt" required>
+        </div>
 
-    <div>
-      <label class="form-label">Type</label>
-      <select class="form-select" name="diaper_type" required>
-        <option value="Wet">Wet</option>
-        <option value="BM">BM</option>
-      </select>
-    </div>
+        <div>
+            <label class="form-label">Type</label>
+            <select class="form-select" name="diaper_type" required>
+                <option value="Wet">Wet</option>
+                <option value="BM">BM</option>
+            </select>
+        </div>
 
-    <div>
-      <label class="form-label">Size</label>
-      <select class="form-select" name="diaper_size" required>
-        <option value="S">Small</option>
-        <option value="M">Medium</option>
-        <option value="L">Large</option>
-      </select>
-    </div>
+        <div>
+            <label class="form-label">Size</label>
+            <select class="form-select" name="diaper_size" required>
+                <option value="S">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+            </select>
+        </div>
 
-    <div>
-      <label class="form-label">Initials</label>
-      <input class="form-control" name="initials" maxlength="2" placeholder="Your initials" required>
-    </div>
+        <div>
+            <label class="form-label">Initials</label>
+            <input class="form-control"
+                   name="initials"
+                   maxlength="2"
+                   placeholder="Your initials"
+                   required>
+        </div>
 
-    <div>
-      <label class="form-label">Notes</label>
-      <textarea class="form-control" name="notes" rows="2"></textarea>
-    </div>
+        <div>
+            <label class="form-label">Notes</label>
+            <textarea class="form-control"
+                      name="notes"
+                      rows="2">
+            </textarea>
+        </div>
 
-    <button class="btn btn-primary" type="submit">Save</button>
-    <a class="btn btn-outline-secondary" href="{{ url_for('diaper_list') }}">Cancel</a>
-  </form>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn btn-outline-secondary" href="{{ url_for('diaper_list') }}">Cancel</a>
+    </form>
 {% endblock %}

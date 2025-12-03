@@ -1,49 +1,50 @@
 {% extends "base.html" %}
 {% block body %}
-  <h3 class="mb-3">Diaper entries</h3>
-  <div class="mb-3">
-    <a class="btn btn-primary" href="{{ url_for('diaper_new') }}">New entry</a>
-  </div>
+    <h3 class="mb-3">Diaper entries</h3>
+    <div class="mb-3">
+        <a class="btn btn-primary" href="{{ url_for('diaper_new') }}">New entry</a>
+    </div>
 
-  <table class="table table-striped align-middle">
-    <thead>
-      <tr>
-        <th>Date/Time</th>
-        <th>Type</th>
-        <th>Size</th>
-        <th>Initials</th>
-        <th>Notes</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for d in rows %}
-      <tr>
-        <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-        <td>{{ d.diaper_type }}</td>
-        <td>{{ d.diaper_size }}</td>
-        <td>{{ d.initials }}</td>
-        <td>{{ d.notes or '' }}</td>
-        <td>
-          <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"
-             class="btn btn-sm btn-outline-primary me-1">
-            Edit
-          </a>
-          
-          <form action="{{ url_for('diaper_delete', diaper_id=d.id) }}"
-                method="post"
-                class="d-inline">
-            <button type="submit"
-                    class="btn btn-sm btn-outline-danger"
-                    onclick="return confirm('Delete this entry?');">
-              Delete
-           </button>
-          </form>
-        </td>
-      </tr>
-      {% else %}
-      <tr><td colspan="5" class="tedt-muted">No entries yet.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Date/Time</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Initials</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for d in rows %}
+        <tr>
+            <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>{{ d.diaper_type }}</td>
+            <td>{{ d.diaper_size }}</td>
+            <td>{{ d.initials }}</td>
+            <td>{{ d.notes or '' }}</td>
+            <td>
+                <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"
+                   class="btn btn-sm btn-outline-primary me-1">
+                   Edit
+                </a>
+                
+                <form action="{{ url_for('diaper_delete', diaper_id=d.id) }}"
+                      method="post"
+                      class="d-inline">
+                    <button type="submit"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Delete this entry?');">
+                            Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="tedt-muted">No entries yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

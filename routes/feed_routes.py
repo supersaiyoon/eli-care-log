@@ -20,7 +20,10 @@ def init_feed_routes(app):
         today = date.today().isoformat()
 
         # Pre-fill feed number field with next feed number
-        last_feed_num = db.session.query(func.max(Feed.feed_num)).scalar()
+        last_feed_num = (db.session.query(func.max(Feed.feed_num))
+            .filter(Feed.date == today)
+            .scalar()
+        )
         next_feed_num = (last_feed_num or 0) + 1
 
         return render_template(
