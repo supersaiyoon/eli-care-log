@@ -37,7 +37,7 @@ class Medication(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     dt = db.Column(db.DateTime, nullable=False, index=True)
     med_name = db.Column(db.String(50), nullable=False)
-    dosage_ml = db.Column(db.Integer, nullable=False)
+    dosage_ml = db.Column(db.Float, nullable=False)
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)
 
