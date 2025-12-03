@@ -9,17 +9,18 @@
 
     <body class="bg-light">
         <nav class="navbar navbar-dark bg-dark mb-4">
-        <div class="container d-flex align-items-center justify-content-between">
-            <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
+            <div class="container d-flex align-items-center justify-content-between">
+                <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
 
-            <div class="d-flex gap-2">
-                <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_list') }}">Diapers</a>
-                <a class="btn btn-outline-light btn-sm" href="{{ url_for('feed_list') }}">Feeds</a>
-                <a class="btn btn-outline-light btn-sm" href="{{ url_for('vomit_list') }}">Throw-ups</a>
-                <a class="btn btn-light btn-sm" href="{{ url_for('diaper_new') }}">+ Diaper</a>
-                <a class="btn btn-light btn-sm" href="{{ url_for('feed_new') }}">+ Feed</a>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_list') }}">Diapers</a>
+                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('feed_list') }}">Feeds</a>
+                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('vomit_list') }}">Vomits</a>
+                    <a class="btn btn-light btn-sm" href="{{ url_for('diaper_new') }}">+ Diaper</a>
+                    <a class="btn btn-light btn-sm" href="{{ url_for('feed_new') }}">+ Feed</a>
+                    <a class="btn btn-light btn-sm" href="{{ url_for('vomit_new') }}">+ Vomit</a>
+                </div>
             </div>
-        </div>
         </nav>
 
         <main class="container">

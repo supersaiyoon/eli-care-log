@@ -20,12 +20,15 @@ def init_diaper_routes(app):
     @app.post("/diaper/new")
     def diaper_create():
         # Raw values from form
-        dt = request.form["dt"]
+        dt_str = request.form["dt"]
         diaper_type = request.form["diaper_type"]
         diaper_size = request.form["diaper_size"]
         initials = request.form["initials"].strip().upper()
-        notes = request.form.get("notes") or None
+        notes = request.form.get("notes").strip() or None
 
+        # Convert date string to datetime
+        dt = datetime.fromisoformat(dt_str)
+        
         row = Diaper(
             dt=dt,
             diaper_type=diaper_type,
@@ -33,6 +36,7 @@ def init_diaper_routes(app):
             initials=initials,
             notes=notes
         )
+
         db.session.add(row)
         db.session.commit()
 
@@ -55,7 +59,7 @@ def init_diaper_routes(app):
         diaper_type = request.form["diaper_type"]
         diaper_size = request.form["diaper_size"]
         initials = request.form["initials"].strip().upper()
-        notes = request.form.get("notes") or None
+        notes = request.form.get("notes").strip() or None
 
         # Convert date string to datetime
         dt = datetime.fromisoformat(raw_dt)

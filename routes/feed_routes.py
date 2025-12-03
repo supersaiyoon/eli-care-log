@@ -42,7 +42,7 @@ def init_feed_routes(app):
         end_time_str = request.form["end_time"]
         feed_vol_ml_str = request.form["feed_vol_ml"].strip()
         feed_rate_str = request.form["feed_rate"].strip()
-        notes = request.form.get("notes") or None
+        notes = request.form.get("notes").strip() or None
 
         # SQLite Date type must be Python date object for table
         feed_date = date.fromisoformat(feed_date_str)
@@ -90,7 +90,7 @@ def init_feed_routes(app):
         end_time_str = request.form["end_time"]
         feed_vol_ml_str = request.form["feed_vol_ml"].strip()
         feed_rate_str = request.form["feed_rate"].strip()
-        notes = request.form.get("notes") or None
+        notes = request.form.get("notes").strip() or None
 
         # SQLite Date type must be Python date object for table
         feed_date = date.fromisoformat(feed_date_str)

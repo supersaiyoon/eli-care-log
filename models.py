@@ -30,3 +30,15 @@ class Feed(db.Model):
     feed_vol_ml = db.Column(db.Integer, nullable=False)
     feed_rate = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
+
+class Vomit(db.Model):
+    __tablename__ = "vomit"
+
+    id = db.Column(db.Integer, primary_key=True)
+    dt = db.Column(db.DateTime, nullable=False)
+    vomit_size = db.Column(
+        Enum("S", "M", "L", name="vomit_size"),
+        nullable=False
+    )
+    feed_rate = db.Column(db.Integer, nullable=False)
+    vomit_reason = db.Column(db.Text)
