@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block body %}
+    <h3 class="mb-3">Edit medication entry</h3>
+    <form method="post"
+        action="{{ url_for('medication_update', medication_id=row.id) }}"
+        class="vstack gap-3">
+
+        <div>
+            <label class="form-label">Date/Time</label>
+            <input class="form-control"
+                   type="datetime-local"
+                   name="dt"
+                   value="{{ row.dt.strftime('%Y-%m-%dT%H:%M') }}"
+                   required>
+        </div>
+
+        <div>
+            <label class="form-label">Medication Name</label>
+            <input list="med_list"
+                   name="med_name"
+                   class="form-control"
+                   placeholder="Enter medication name"
+                   value="{{ row.med_name }}"
+                   required>
+            <datalist id="med_list">
+                <option value="Tylenol" {% if row.med_name == 'Tylenol' %}selected{% endif %}>Tylenol</option>
+                <option value="Ibuprofen" {% if row.med_name == 'Ibuprofen' %}selected{% endif %}>Ibuprofen</option>
+                <option value="Neb (albuterol + 0.9% saline)" {% if row.med_name == 'Neb (albuterol + 0.9% saline)' %}selected{% endif %}>Neb (albuterol + 0.9% saline)</option>
+                <option value="Neb (albuterol + 3% saline)" {% if row.med_name == 'Neb (albuterol + 3% saline)' %}selected{% endif %}>Neb (albuterol + 3% saline)</option>
+            </datalist>
+        </div>
+
+        <div>
+            <label class="form-label">Dosage (mL)</label>
+            <input class="form-control"
+                   type="number"
+                   step="0.1"
+                   name="dosage_ml"
+                   value="{{ row.dosage_ml }}"
+                   required>
+        </div>
+
+        <div>
+            <label class="form-label">Initials</label>
+            <input class="form-control"
+                   name="initials"
+                   maxlength="2"
+                   value="{{ row.initials }}"
+                   required>
+        </div>
+
+        <div>
+            <label class="form-label">Notes</label>
+            <textarea class="form-control"
+                      name="notes"
+                      rows="2">{{ row.notes or "" }}</textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save changes</button>
+        <a class="btn btn-outline-secondary" href="{{ url_for('medication_list') }}">Cancel</a>
+    </form>
+{% endblock %}
