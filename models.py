@@ -7,7 +7,7 @@ class Diaper(db.Model):
     __tablename__ = "diapers"
     
     id = db.Column(db.Integer, primary_key=True)
-    dt = db.Column(db.DateTime, nullable=False)
+    dt = db.Column(db.DateTime, nullable=False, index=True)
     diaper_type = db.Column(
         Enum("Wet", "BM", name="diaper_type"),
         nullable=False
@@ -31,11 +31,21 @@ class Feed(db.Model):
     feed_rate = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
 
+class Medication(db.Model):
+    __tablename__ = "medication"
+
+    id = db.Column(db.Integer, primary_key=True)
+    dt = db.Column(db.DateTime, nullable=False, index=True)
+    med_name = db.Column(db.String(50), nullable=False)
+    dosage_ml = db.Column(db.Integer, nullable=False)
+    initials = db.Column(db.String(2), nullable=False)
+    notes = db.Column(db.Text)
+
 class Vomit(db.Model):
     __tablename__ = "vomit"
 
     id = db.Column(db.Integer, primary_key=True)
-    dt = db.Column(db.DateTime, nullable=False)
+    dt = db.Column(db.DateTime, nullable=False, index=True)
     vomit_size = db.Column(
         Enum("S", "M", "L", name="vomit_size"),
         nullable=False
