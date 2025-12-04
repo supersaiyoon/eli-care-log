@@ -25,9 +25,9 @@ class Feed(db.Model):
     date = db.Column(db.Date, nullable=False)
     feed_num = db.Column(db.Integer, autoincrement=True)
     start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
-    feed_vol_ml = db.Column(db.Integer, nullable=False)
-    feed_rate = db.Column(db.Integer, nullable=False)
+    end_time = db.Column(db.Time, nullable=True)
+    feed_vol_ml = db.Column(db.Integer, nullable=True)
+    feed_rate = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text)
 
 class Medication(db.Model):

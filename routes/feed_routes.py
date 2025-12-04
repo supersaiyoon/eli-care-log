@@ -49,12 +49,12 @@ def init_feed_routes(app):
 
         # Ensure inputs are stored as integers
         feed_num = int(feed_num_str)
-        feed_vol_ml = int(feed_vol_ml_str)
-        feed_rate = int(feed_rate_str)
+        feed_vol_ml = int(feed_vol_ml_str) if feed_vol_ml_str else None
+        feed_rate = int(feed_rate_str) if feed_rate_str else None
 
         # SQLite Time type must be Python time object for table
         start_time = time.fromisoformat(start_time_str)
-        end_time = time.fromisoformat(end_time_str)
+        end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
         row = Feed(
             date=feed_date,
@@ -97,12 +97,12 @@ def init_feed_routes(app):
 
         # Ensure inputs are stored as integers
         feed_num = int(feed_num_str)
-        feed_vol_ml = int(feed_vol_ml_str)
-        feed_rate = int(feed_rate_str)
+        feed_vol_ml = int(feed_vol_ml_str) if feed_vol_ml_str else None
+        feed_rate = int(feed_rate_str) if feed_rate_str else None
 
         # SQLite Time type must be Python time object for table
         start_time = time.fromisoformat(start_time_str)
-        end_time = time.fromisoformat(end_time_str)
+        end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
         # Apply updates
         row.date = feed_date
