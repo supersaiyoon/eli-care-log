@@ -41,7 +41,15 @@ class Medication(db.Model):
     initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)
 
-# TODO: Implement Sleep model
+class Sleep(db.Model):
+    __tablename__ = "sleep"
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    sleep_duration_min = db.Column(db.Integer, nullable=False)
+    notes = db.Column(db.Text)
 
 class Vomit(db.Model):
     __tablename__ = "vomit"
@@ -54,3 +62,5 @@ class Vomit(db.Model):
     )
     feed_rate = db.Column(db.Integer, nullable=False)
     vomit_reason = db.Column(db.Text)
+
+# TODO: Implement weekly tasks tracker model (trach change, G-tube balloon check, etc.)
