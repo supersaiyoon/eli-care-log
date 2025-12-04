@@ -34,6 +34,18 @@ init_medication_routes(app)
 init_sleep_routes(app)
 init_vomit_routes(app)
 
+
+# Helper functions
+@app.template_filter("minutes_to_hhmm")
+def minutes_to_hhmm(total_minutes):
+    if total_minutes is None:
+        return ""
+    
+    hours = total_minutes // 60
+    minutes = total_minutes % 60
+    
+    return f"{hours:02d}:{minutes:02d}"
+
 @app.get("/")
 def dashboard():
     return render_template("dashboard.html")
