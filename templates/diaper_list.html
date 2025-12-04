@@ -11,7 +11,6 @@
                 <th>Date/Time</th>
                 <th>Type</th>
                 <th>Size</th>
-                <th>Initials</th>
                 <th>Notes</th>
                 <th>Actions</th>
             </tr>
@@ -23,7 +22,6 @@
             <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
             <td>{{ d.diaper_type }}</td>
             <td>{{ d.diaper_size }}</td>
-            <td>{{ d.initials }}</td>
             <td>{{ d.notes or '' }}</td>
             <td>
                 <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"

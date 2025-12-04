@@ -16,7 +16,6 @@ class Diaper(db.Model):
         Enum("S", "M", "L", name="diaper_size"),
         nullable=False
     )
-    initials = db.Column(db.String(2), nullable=False)
     notes = db.Column(db.Text)
 
 class Feed(db.Model):
