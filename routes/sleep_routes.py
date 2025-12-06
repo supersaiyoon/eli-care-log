@@ -9,7 +9,7 @@ def init_sleep_routes(app):
     # Show history of sleep
     @app.get("/sleep")
     def sleep_list():
-        rows = Sleep.query.order_by(Sleep.date.desc()).all()
+        rows = Sleep.query.order_by(Sleep.date.desc(), Sleep.start_time.desc()).all()
         return render_template("sleep_list.html", rows=rows)
 
     # New sleep entry form

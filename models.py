@@ -3,6 +3,7 @@ from sqlalchemy import Enum
 
 db = SQLAlchemy()
 
+# TODO: Allow inputting sizes for both wet and BM diapers.
 class Diaper(db.Model):
     __tablename__ = "diapers"
     
