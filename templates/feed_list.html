@@ -35,7 +35,7 @@
             <td>
                 <a href="{{ url_for('feed_edit', feed_id=f.id) }}"
                 class="btn btn-sm btn-outline-primary me-1">
-                Edit
+                ✏️
                 </a>
                 
                 <form action="{{ url_for('feed_delete', feed_id=f.id) }}"
@@ -44,7 +44,7 @@
                     <button type="submit"
                             class="btn btn-sm btn-outline-danger"
                             onclick="return confirm('Delete this entry?');">
-                            Delete
+                            🗑
                     </button>
                 </form>
             </td>

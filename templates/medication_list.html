@@ -28,7 +28,7 @@
             <td>
                 <a href="{{ url_for('medication_edit', medication_id=m.id) }}"
                    class="btn btn-sm btn-outline-primary me-1">
-                   Edit
+                   ✏️
                 </a>
                 
                 <form action="{{ url_for('medication_delete', medication_id=m.id) }}"
@@ -37,7 +37,7 @@
                     <button type="submit"
                             class="btn btn-sm btn-outline-danger"
                             onclick="return confirm('Delete this entry?');">
-                            Delete
+                            🗑
                     </button>
                 </form>
             </td>
