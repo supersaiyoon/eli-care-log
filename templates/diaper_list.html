@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Date/Time</th>
-                <th>Type</th>
-                <th>Size</th>
+                <th>Wet Diaper Size</th>
+                <th>BM Diaper Size</th>
                 <th>Notes</th>
                 <th>Actions</th>
             </tr>
@@ -20,8 +20,8 @@
         {% for d in rows %}
         <tr>
             <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-            <td>{{ d.diaper_type }}</td>
-            <td>{{ d.diaper_size }}</td>
+            <td>{{ d.wet_diaper_size }}</td>
+            <td>{{ d.bm_diaper_size }}</td>
             <td>{{ d.notes or '' }}</td>
             <td>
                 <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"
@@ -41,7 +41,7 @@
             </td>
         </tr>
         {% else %}
-        <tr><td colspan="5" class="text-muted">No entries yet.</td></tr>
+        <tr><td colspan="6" class="text-muted">No entries yet.</td></tr>
         {% endfor %}
         </tbody>
     </table>

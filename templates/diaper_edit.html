@@ -6,7 +6,7 @@
         class="vstack gap-3">
 
         <div>
-            <label class="form-label">Time</label>
+            <label class="form-label">Date/Time</label>
             <input class="form-control"
                    type="datetime-local"
                    name="dt"
@@ -15,19 +15,22 @@
         </div>
 
         <div>
-            <label class="form-label">Type</label>
-            <select class="form-select" name="diaper_type" required>
-                <option value="Wet" {% if row.diaper_type == 'Wet' %}selected{% endif %}>Wet</option>
-                <option value="BM"    {% if row.diaper_type == 'BM' %}selected{% endif %}>BM</option>
+            <label class="form-label">Wet Diaper Size</label>
+            <select class="form-select" name="wet_diaper_size">
+                <option value="" {% if not row.wet_diaper_size %}selected{% endif %}> Select size</option>
+                <option value="S" {% if row.wet_diaper_size == 'S' %}selected{% endif %}>Small</option>
+                <option value="M" {% if row.wet_diaper_size == 'M' %}selected{% endif %}>Medium</option>
+                <option value="L" {% if row.wet_diaper_size == 'L' %}selected{% endif %}>Large</option>
             </select>
         </div>
 
         <div>
-            <label class="form-label">Size</label>
-            <select class="form-select" name="diaper_size" required>
-                <option value="S" {% if row.diaper_size == 'S' %}selected{% endif %}>Small</option>
-                <option value="M" {% if row.diaper_size == 'M' %}selected{% endif %}>Medium</option>
-                <option value="L" {% if row.diaper_size == 'L' %}selected{% endif %}>Large</option>
+            <label class="form-label">BM Diaper Size</label>
+            <select class="form-select" name="bm_diaper_size">
+                <option value="" {% if not row.bm_diaper_size %}selected{% endif %}> Select size</option>
+                <option value="S" {% if row.bm_diaper_size == 'S' %}selected{% endif %}>Small</option>
+                <option value="M" {% if row.bm_diaper_size == 'M' %}selected{% endif %}>Medium</option>
+                <option value="L" {% if row.bm_diaper_size == 'L' %}selected{% endif %}>Large</option>
             </select>
         </div>
 

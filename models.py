@@ -3,19 +3,19 @@ from sqlalchemy import Enum
 
 db = SQLAlchemy()
 
-# TODO: Allow inputting sizes for both wet and BM diapers.
+
 class Diaper(db.Model):
     __tablename__ = "diapers"
     
     id = db.Column(db.Integer, primary_key=True)
     dt = db.Column(db.DateTime, nullable=False, index=True)
-    diaper_type = db.Column(
-        Enum("Wet", "BM", name="diaper_type"),
-        nullable=False
+    wet_diaper_size = db.Column(
+        Enum("S", "M", "L", name="wet_diaper_size"),
+        nullable=True
     )
-    diaper_size = db.Column(
-        Enum("S", "M", "L", name="diaper_size"),
-        nullable=False
+    bm_diaper_size = db.Column(
+        Enum("S", "M", "L", name="bm_diaper_size"),
+        nullable=True
     )
     notes = db.Column(db.Text)
 

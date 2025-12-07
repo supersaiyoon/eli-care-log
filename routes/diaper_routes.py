@@ -21,8 +21,8 @@ def init_diaper_routes(app):
     def diaper_create():
         # Raw values from form
         dt_str = request.form["dt"]
-        diaper_type = request.form["diaper_type"]
-        diaper_size = request.form["diaper_size"]
+        wet_diaper_size = request.form["wet_diaper_size"] or None
+        bm_diaper_size = request.form["bm_diaper_size"] or None
         notes = request.form.get("notes").strip() or None
 
         # Convert date string to datetime
@@ -30,8 +30,8 @@ def init_diaper_routes(app):
         
         row = Diaper(
             dt=dt,
-            diaper_type=diaper_type,
-            diaper_size=diaper_size,
+            wet_diaper_size=wet_diaper_size,
+            bm_diaper_size=bm_diaper_size,
             notes=notes
         )
 
@@ -54,8 +54,8 @@ def init_diaper_routes(app):
 
         # Raw values from form
         raw_dt = request.form["dt"]
-        diaper_type = request.form["diaper_type"]
-        diaper_size = request.form["diaper_size"]
+        wet_diaper_size = request.form["wet_diaper_size"] or None
+        bm_diaper_size = request.form["bm_diaper_size"] or None
         notes = request.form.get("notes").strip() or None
 
         # Convert date string to datetime
@@ -63,8 +63,8 @@ def init_diaper_routes(app):
 
         # Apply updates
         row.dt = dt
-        row.diaper_type = diaper_type
-        row.diaper_size = diaper_size
+        row.wet_diaper_size = wet_diaper_size
+        row.bm_diaper_size = bm_diaper_size
         row.notes = notes
 
         db.session.commit()
