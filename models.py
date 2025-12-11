@@ -47,7 +47,7 @@ class Sleep(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=True)
     sleep_duration_min = db.Column(db.Integer, nullable=False)
     notes = db.Column(db.Text)
 
