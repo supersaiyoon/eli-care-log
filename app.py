@@ -36,6 +36,10 @@ init_vomit_routes(app)
 
 
 # Helper functions
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 @app.template_filter("minutes_to_hhmm")
 def minutes_to_hhmm(total_minutes):
     if total_minutes is None:
