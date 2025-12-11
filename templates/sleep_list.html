@@ -25,8 +25,26 @@
         <tr>
             <td>{{ s.date.strftime('%Y-%m-%d') }}</td>
             <td>{{ s.start_time.strftime('%H:%M') }}</td>
-            <td>{{ s.end_time.strftime('%H:%M') }}</td>
-            <td>{{ s.sleep_duration_min | minutes_to_hhmm }}</td>
+            
+            
+            <td>
+                {% if s.end_time  %}
+                    {{ s.end_time.strftime('%H:%M') }}
+                {% else %}
+                    <!-- No end time yet -->
+                    --
+                {% endif %}
+            </td>
+
+            <td>
+                {% if s.sleep_duration_min is not none %}
+                    {{ s.sleep_duration_min | minutes_to_hhmm }}
+                {% else %}
+                    <!-- No duration yet -->
+                    --
+                {% endif %}
+            </td>
+
             <td>{{ s.notes or '' }}</td>
             <td>
                 <a href="{{ url_for('sleep_edit', sleep_id=s.id) }}"
