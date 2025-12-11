@@ -35,11 +35,16 @@ init_sleep_routes(app)
 init_vomit_routes(app)
 
 
-# Helper functions
-@app.before_first_request
-def create_tables():
-    db.create_all()
+def init_db():
+    # Ensure we have app context when touching db
+    with app.app_context():
+        db.create_all()
 
+# Run once at startup (both dev and container)
+init_db()
+
+
+# Helper functions
 @app.template_filter("minutes_to_hhmm")
 def minutes_to_hhmm(total_minutes):
     if total_minutes is None:
@@ -57,9 +62,5 @@ def dashboard():
 
 # Dev server entry point.
 if __name__ == "__main__":
-    # One-time table creation; only creates missing tables.
-    with app.app_context():
-        db.create_all()
-
     # debug=True auto reloads on code changes.
     app.run(host="0.0.0.0", port=5000, debug=True)
