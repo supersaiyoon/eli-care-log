@@ -48,7 +48,7 @@ class Sleep(db.Model):
     date = db.Column(db.Date, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=True)
-    sleep_duration_min = db.Column(db.Integer, nullable=False)
+    sleep_duration_min = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text)
 
 class Vomit(db.Model):

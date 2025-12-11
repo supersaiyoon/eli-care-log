@@ -39,16 +39,20 @@ def init_sleep_routes(app):
         start_time = time.fromisoformat(start_time_str)
         end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
-        # Compute sleep duration in minutes
-        start_dt = datetime.combine(sleep_date, start_time)
-        end_dt = datetime.combine(sleep_date, end_time)
-        
-        # Handle case where sleep goes past midnight
-        if end_dt <= start_dt:
-            end_dt += timedelta(days=1)
-        
-        sleep_duration = end_dt - start_dt
-        sleep_duration_min = sleep_duration.total_seconds() // 60
+        # Compute sleep duration only if end_time is provided
+        if end_time:
+            start_dt = datetime.combine(sleep_date, start_time)
+            end_dt = datetime.combine(sleep_date, end_time)
+            
+            # Handle case where sleep goes past midnight
+            if end_dt <= start_dt:
+                end_dt += timedelta(days=1)
+            
+            # Compute sleep duration in minutes
+            sleep_duration = end_dt - start_dt
+            sleep_duration_min = sleep_duration.total_seconds() // 60
+        else:
+            sleep_duration_min = None
 
         row = Sleep(
             date=sleep_date,
@@ -88,16 +92,20 @@ def init_sleep_routes(app):
         start_time = time.fromisoformat(start_time_str)
         end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
-        # Compute sleep duration in minutes
-        start_dt = datetime.combine(sleep_date, start_time)
-        end_dt = datetime.combine(sleep_date, end_time)
-        
-        # Handle case where sleep goes past midnight
-        if end_dt <= start_dt:
-            end_dt += timedelta(days=1)
-        
-        sleep_duration = end_dt - start_dt
-        sleep_duration_min = sleep_duration.total_seconds() // 60
+        # Compute sleep duration only if end_time is provided
+        if end_time:
+            start_dt = datetime.combine(sleep_date, start_time)
+            end_dt = datetime.combine(sleep_date, end_time)
+            
+            # Handle case where sleep goes past midnight
+            if end_dt <= start_dt:
+                end_dt += timedelta(days=1)
+            
+            # Compute sleep duration in minutes
+            sleep_duration = end_dt - start_dt
+            sleep_duration_min = sleep_duration.total_seconds() // 60
+        else:
+            sleep_duration_min = None
 
         # Apply updates
         row.date = sleep_date
