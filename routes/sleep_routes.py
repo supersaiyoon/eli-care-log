@@ -37,7 +37,7 @@ def init_sleep_routes(app):
 
         # SQLite Time type must be Python time object for table
         start_time = time.fromisoformat(start_time_str)
-        end_time = time.fromisoformat(end_time_str)
+        end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
         # Compute sleep duration in minutes
         start_dt = datetime.combine(sleep_date, start_time)
@@ -86,7 +86,7 @@ def init_sleep_routes(app):
 
         # SQLite Time type must be Python time object for table
         start_time = time.fromisoformat(start_time_str)
-        end_time = time.fromisoformat(end_time_str)
+        end_time = time.fromisoformat(end_time_str) if end_time_str else None
 
         # Compute sleep duration in minutes
         start_dt = datetime.combine(sleep_date, start_time)
