@@ -13,20 +13,17 @@ from routes.sleep_routes import init_sleep_routes
 from routes.vomit_routes import init_vomit_routes
 
 
-DATABASE_DIR = "db"
+# App + config
+app = Flask(__name__)
+
+DATABASE_DIR = "/app/db"
 DATABASE_FILE = "eli_care_log.db"
-DATABASE_PATH = f"{DATABASE_DIR}/{DATABASE_FILE}"
+DATABASE_PATH = os.path.join(DATABASE_DIR, DATABASE_FILE)
 
 # Ensure db dir exists
 os.makedirs(DATABASE_DIR, exist_ok=True)
 
-# App + config
-app = Flask(__name__)
-
-# Keep secrets out of code; falls back to "dev" if env var not set.
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
-
-# SQLite file lives next to app.py for now.
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DATABASE_PATH}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
