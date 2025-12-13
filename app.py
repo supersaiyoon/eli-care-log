@@ -16,15 +16,23 @@ from routes.vomit_routes import init_vomit_routes
 # App + config
 app = Flask(__name__)
 
-DATABASE_DIR = "/app/db"
+# Database path
+DEFAULT_DB_DIR = "db"  # Dev default (local folder)
+DATABASE_DIR = os.environ.get("ELI_DB_DIR", DEFAULT_DB_DIR)
+
+# If running in Docker, use container path unless overridden
+if os.path.exists("/.dockerenv") and "ELI_DB_DIR" not in os.environ:
+    DATABASE_DIR = "/app/db"
+
 DATABASE_FILE = "eli_care_log.db"
-DATABASE_PATH = os.path.join(DATABASE_DIR, DATABASE_FILE)
+DATABASE_PATH = os.path.abspath(os.path.join(DATABASE_DIR, DATABASE_FILE))
+db_uri_path = DATABASE_PATH.replace("\\", "/")
 
 # Ensure db dir exists
 os.makedirs(DATABASE_DIR, exist_ok=True)
 
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DATABASE_PATH}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_uri_path}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
