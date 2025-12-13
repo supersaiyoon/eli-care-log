@@ -1,48 +1,61 @@
 {% extends "base.html" %}
 {% block body %}
-    <h3 class="mb-3">Vomit entries</h3>
-    <div class="mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Vomit entries</h3>
         <a class="btn btn-primary" href="{{ url_for('vomit_new') }}">New entry</a>
     </div>
 
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Date/Time</th>
-                <th>Size</th>
-                <th>Rate (mL/hr)</th>
-                <th>Reason</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div class="vstack gap-3">
+    {% for v in rows %}
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-semibold">{{ v.dt.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
 
-        <tbody>
-        {% for v in rows %}
-        <tr>
-            <td>{{ v.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-            <td>{{ v.vomit_size }}</td>
-            <td>{{ v.feed_rate }}</td>
-            <td>{{ v.vomit_reason }}</td>
-            <td>
-                <a href="{{ url_for('vomit_edit', vomit_id=v.id) }}"
-                   class="btn btn-sm btn-outline-primary me-1">
-                   ✏️
-                </a>
-                
-                <form action="{{ url_for('vomit_delete', vomit_id=v.id) }}"
-                      method="post"
-                      class="d-inline">
-                    <button type="submit"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="return confirm('Delete this entry?');">
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('vomit_edit', vomit_id=v.id) }}"
+                       class="btn btn-sm btn-outline-primary"
+                       aria-label="Edit">
+                        ✏️
+                    </a>
+
+                    <form action="{{ url_for('vomit_delete', vomit_id=v.id) }}"
+                          method="post"
+                          class="d-inline">
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                aria-label="Delete"
+                                onclick="return confirm('Delete this entry?');">
                             🗑
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-        <tr><td colspan="5" class="text-muted">No entries yet.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6 col-md-4">
+                        <div class="text-muted small">Size</div>
+                        <div>{{ v.vomit_size }}</div>
+                    </div>
+
+                    <div class="col-6 col-md-4">
+                        <div class="text-muted small">Feed rate</div>
+                        <div>{{ v.feed_rate }} <span class="text-muted">mL/hr</span></div>
+                    </div>
+
+                    {% if v.vomit_reason %}
+                    <div class="col-12">
+                        <div class="text-muted small">Reason</div>
+                        <div class="text-break">{{ v.vomit_reason }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-secondary mb-0">No entries yet.</div>
+    {% endfor %}
+    </div>
 {% endblock %}
