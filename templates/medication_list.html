@@ -1,50 +1,62 @@
 {% extends "base.html" %}
 {% block body %}
-    <h3 class="mb-3">Medication entries</h3>
-    <div class="mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Medication entries</h3>
         <a class="btn btn-primary" href="{{ url_for('medication_new') }}">New entry</a>
     </div>
 
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Date/Time</th>
-                <th>Medication Name</th>
-                <th>Dosage (mL)</th>
-                <th>Initials</th>
-                <th>Notes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div class="vstack gap-3">
+    {% for m in rows %}
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-semibold">{{ m.med_name }}</span>
+                    <span class="text-muted ms-2">{{ m.dt.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
 
-        <tbody>
-        {% for m in rows %}
-        <tr>
-            <td>{{ m.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-            <td>{{ m.med_name }}</td>
-            <td>{{ m.dosage_ml }}</td>
-            <td>{{ m.initials }}</td>
-            <td>{{ m.notes or '' }}</td>
-            <td>
-                <a href="{{ url_for('medication_edit', medication_id=m.id) }}"
-                   class="btn btn-sm btn-outline-primary me-1">
-                   ✏️
-                </a>
-                
-                <form action="{{ url_for('medication_delete', medication_id=m.id) }}"
-                      method="post"
-                      class="d-inline">
-                    <button type="submit"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="return confirm('Delete this entry?');">
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('medication_edit', medication_id=m.id) }}"
+                       class="btn btn-sm btn-outline-primary"
+                       aria-label="Edit">
+                        ✏️
+                    </a>
+
+                    <form action="{{ url_for('medication_delete', medication_id=m.id) }}"
+                          method="post"
+                          class="d-inline">
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                aria-label="Delete"
+                                onclick="return confirm('Delete this entry?');">
                             🗑
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-        <tr><td colspan="6" class="text-muted">No entries yet.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6 col-md-4">
+                        <div class="text-muted small">Dosage</div>
+                        <div>{{ m.dosage_ml }} <span class="text-muted">mL</span></div>
+                    </div>
+
+                    <div class="col-6 col-md-4">
+                        <div class="text-muted small">Initials</div>
+                        <div>{{ m.initials }}</div>
+                    </div>
+
+                    {% if m.notes %}
+                    <div class="col-12">
+                        <div class="text-muted small">Notes</div>
+                        <div class="text-break">{{ m.notes }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-secondary mb-0">No entries yet.</div>
+    {% endfor %}
+    </div>
 {% endblock %}
