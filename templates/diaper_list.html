@@ -1,48 +1,73 @@
 {% extends "base.html" %}
 {% block body %}
-    <h3 class="mb-3">Diaper entries</h3>
-    <div class="mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Diaper entries</h3>
         <a class="btn btn-primary" href="{{ url_for('diaper_new') }}">New entry</a>
     </div>
 
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Date/Time</th>
-                <th>Wet Diaper Size</th>
-                <th>BM Diaper Size</th>
-                <th>Notes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div class="vstack gap-3">
+    {% for d in rows %}
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-semibold">{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
 
-        <tbody>
-        {% for d in rows %}
-        <tr>
-            <td>{{ d.dt.strftime('%Y-%m-%d %H:%M') }}</td>
-            <td>{{ d.wet_diaper_size }}</td>
-            <td>{{ d.bm_diaper_size }}</td>
-            <td>{{ d.notes or '' }}</td>
-            <td>
-                <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"
-                   class="btn btn-sm btn-outline-primary me-1">
-                   ✏️
-                </a>
-                
-                <form action="{{ url_for('diaper_delete', diaper_id=d.id) }}"
-                      method="post"
-                      class="d-inline">
-                    <button type="submit"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="return confirm('Delete this entry?');">
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('diaper_edit', diaper_id=d.id) }}"
+                       class="btn btn-sm btn-outline-primary"
+                       aria-label="Edit">
+                        ✏️
+                    </a>
+
+                    <form action="{{ url_for('diaper_delete', diaper_id=d.id) }}"
+                          method="post"
+                          class="d-inline">
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                aria-label="Delete"
+                                onclick="return confirm('Delete this entry?');">
                             🗑
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-        <tr><td colspan="6" class="text-muted">No entries yet.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="text-muted small">Wet</div>
+                        <div>
+                            {% if d.wet_diaper_size %}
+                                {{ d.wet_diaper_size }}
+                            {% else %}
+                                <span class="text-muted">None</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="text-muted small">BM</div>
+                        <div>
+                            {% if d.bm_diaper_size %}
+                                {{ d.bm_diaper_size }}
+                            {% else %}
+                                <span class="text-muted">None</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if d.notes %}
+                    <div class="col-12">
+                        <div class="text-muted small">Notes</div>
+                        <div class="text-break">{{ d.notes }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-secondary mb-0">No entries yet.</div>
+    {% endfor %}
+    </div>
 {% endblock %}
