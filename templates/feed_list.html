@@ -1,57 +1,87 @@
 {% extends "base.html" %}
 {% block body %}
-    <h3 class="mb-3">Feed entries</h3>
-    <div class="mb-3">
-        <a class="btn btn-primary"
-           href="{{ url_for('feed_new') }}">
-           New entry
-        </a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Feed entries</h3>
+        <a class="btn btn-primary" href="{{ url_for('feed_new') }}">New entry</a>
     </div>
 
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Feed No.</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Volume (mL)</th>
-                <th>Rate (mL/hr)</th>
-                <th>Notes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div class="vstack gap-3">
+    {% for f in rows %}
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="fw-semibold">Feed #{{ f.feed_num }}</span>
+                    <span class="text-muted ms-2">{{ f.date.strftime('%Y-%m-%d') }}</span>
+                </div>
 
-        <tbody>
-        {% for f in rows %}
-        <tr>
-            <td>{{ f.date.strftime('%Y-%m-%d') }}</td>
-            <td>{{ f.feed_num }}</td>
-            <td>{{ f.start_time.strftime('%H:%M') if f.start_time else '' }}</td>
-            <td>{{ f.end_time.strftime('%H:%M') if f.end_time else '' }}</td>
-            <td>{{ f.feed_vol_ml if f.feed_vol_ml is not none else '' }}</td>
-            <td>{{ f.feed_rate if f.feed_rate is not none else '' }}</td>
-            <td>{{ f.notes or '' }}</td>
-            <td>
-                <a href="{{ url_for('feed_edit', feed_id=f.id) }}"
-                class="btn btn-sm btn-outline-primary me-1">
-                ✏️
-                </a>
-                
-                <form action="{{ url_for('feed_delete', feed_id=f.id) }}"
-                    method="post"
-                    class="d-inline">
-                    <button type="submit"
-                            class="btn btn-sm btn-outline-danger"
-                            onclick="return confirm('Delete this entry?');">
+                <div class="d-flex gap-2">
+                    <a href="{{ url_for('feed_edit', feed_id=f.id) }}"
+                       class="btn btn-sm btn-outline-primary"
+                       aria-label="Edit">
+                        ✏️
+                    </a>
+
+                    <form action="{{ url_for('feed_delete', feed_id=f.id) }}"
+                          method="post"
+                          class="d-inline">
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-danger"
+                                aria-label="Delete"
+                                onclick="return confirm('Delete this entry?');">
                             🗑
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-        <tr><td colspan="8" class="text-muted">No entries yet.</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <div class="text-muted small">Time</div>
+                        <div>
+                            {{ f.start_time.strftime('%H:%M') if f.start_time else '' }}
+                            <span class="text-muted mx-1">to</span>
+                            {% if f.end_time %}
+                                {{ f.end_time.strftime('%H:%M') }}
+                            {% else %}
+                                --
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="text-muted small">Volume</div>
+                        <div>
+                            {% if f.feed_vol_ml is not none %}
+                                {{ f.feed_vol_ml }} <span class="text-muted">mL</span>
+                            {% else %}
+                                <span class="text-muted">(blank)</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="text-muted small">Rate</div>
+                        <div>
+                            {% if f.feed_rate is not none %}
+                                {{ f.feed_rate }} <span class="text-muted">mL/hr</span>
+                            {% else %}
+                                <span class="text-muted">(blank)</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if f.notes %}
+                    <div class="col-12">
+                        <div class="text-muted small">Notes</div>
+                        <div class="text-break">{{ f.notes }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-secondary mb-0">No entries yet.</div>
+    {% endfor %}
+    </div>
 {% endblock %}
