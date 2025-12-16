@@ -40,11 +40,11 @@
 
     <body class="bg-light">
         <nav class="navbar navbar-dark bg-dark mb-4">
-            <div class="container d-flex align-items-center">
+            <div class="container d-flex flex-column align-items-start gap-2">
                 <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
 
-                <!-- LEFT GROUP -->
-                <div class="d-flex gap-2">
+                <!-- LIST LINKS -->
+                <div class="d-flex gap-2 flex-wrap">
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_list') }}">Diapers</a>
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('feed_list') }}">Feeds</a>
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('vomit_list') }}">Vomits</a>
@@ -52,11 +52,8 @@
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('medication_list') }}">Medications</a>
                 </div>
 
-                <!-- SPACER pushes right-group to the right -->
-                <div class="ms-auto"></div>
-
-                <!-- RIGHT GROUP -->
-                <div class="d-flex gap-2">
+                <!-- NEW ENTRY LINKS -->
+                <div class="d-flex gap-2 flex-wrap">
                     <a class="btn btn-light btn-sm" href="{{ url_for('diaper_new') }}">+ Diaper</a>
                     <a class="btn btn-light btn-sm" href="{{ url_for('feed_new') }}">+ Feed</a>
                     <a class="btn btn-light btn-sm" href="{{ url_for('vomit_new') }}">+ Vomit</a>
