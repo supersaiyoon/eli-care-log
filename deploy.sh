@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+# Force sane PATH for non-interactive SSH
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 # Change these only if your names differ
 APP_DIR="/volume1/web_apps/eli-care-log"
 IMAGE_NAME="eli-care-log:latest"
