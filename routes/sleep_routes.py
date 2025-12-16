@@ -9,8 +9,22 @@ def init_sleep_routes(app):
     # Show history of sleep
     @app.get("/sleep")
     def sleep_list():
-        rows = Sleep.query.order_by(Sleep.date.desc(), Sleep.start_time.desc()).all()
-        return render_template("sleep_list.html", rows=rows)
+        PER_PAGE = 5
+        page = request.args.get("page", default=0, type=int)
+        offset = page * PER_PAGE
+
+        q = Sleep.query.order_by(Sleep.date.desc(), Sleep.start_time.desc())
+        rows = q.offset(offset).limit(PER_PAGE + 1).all()
+
+        has_more = len(rows) > PER_PAGE
+        rows = rows[:PER_PAGE]
+
+        return render_template(
+            "sleep_list.html",
+            rows=rows,
+            page=page,
+            has_more=has_more,
+        )
 
     # New sleep entry form
     @app.get("/sleep/new")

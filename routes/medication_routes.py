@@ -8,8 +8,22 @@ def init_medication_routes(app):
     # Show history of medications
     @app.get("/medication")
     def medication_list():
-        rows = Medication.query.order_by(Medication.dt.desc()).all()
-        return render_template("medication_list.html", rows=rows)
+        PER_PAGE = 5
+        page = request.args.get("page", default=0, type=int)
+        offset = page * PER_PAGE
+
+        q = Medication.query.order_by(Medication.dt.desc())
+        rows = q.offset(offset).limit(PER_PAGE + 1).all()
+
+        has_more = len(rows) > PER_PAGE
+        rows = rows[:PER_PAGE]
+
+        return render_template(
+            "medication_list.html",
+            rows=rows,
+            page=page,
+            has_more=has_more,
+        )
     
     # New medication entry form
     @app.get("/medication/new")

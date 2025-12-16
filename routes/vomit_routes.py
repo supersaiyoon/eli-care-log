@@ -10,8 +10,22 @@ def init_vomit_routes(app):
     # Show history of vomits
     @app.get("/vomit")
     def vomit_list():
-        rows = Vomit.query.order_by(Vomit.dt.desc()).all()
-        return render_template("vomit_list.html", rows=rows)
+        PER_PAGE = 5
+        page = request.args.get("page", default=0, type=int)
+        offset = page * PER_PAGE
+
+        q = Vomit.query.order_by(Vomit.dt.desc())
+        rows = q.offset(offset).limit(PER_PAGE + 1).all()
+
+        has_more = len(rows) > PER_PAGE
+        rows = rows[:PER_PAGE]
+
+        return render_template(
+            "vomit_list.html",
+            rows=rows,
+            page=page,
+            has_more=has_more,
+        )
 
     # New vomit entry form
     @app.get("/vomit/new")

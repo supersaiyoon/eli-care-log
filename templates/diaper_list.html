@@ -68,5 +68,13 @@
     {% else %}
         <div class="alert alert-secondary mb-0">No entries yet.</div>
     {% endfor %}
+
+    {% if has_more %}
+        <div class="d-grid mt-3">
+            <a class="btn btn-outline-primary" href="{{ url_for(request.endpoint, page=page + 1) }}">
+                See more
+            </a>
+        </div>
+    {% endif %}
     </div>
 {% endblock %}

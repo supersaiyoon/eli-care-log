@@ -10,8 +10,22 @@ def init_feed_routes(app):
     # Show history of feeds
     @app.get("/feed")
     def feed_list():
-        rows = Feed.query.order_by(Feed.date.desc(), Feed.feed_num.desc()).all()
-        return render_template("feed_list.html", rows=rows)
+        PER_PAGE = 5
+        page = request.args.get("page", default=0, type=int)
+        offset = page * PER_PAGE
+
+        q = Feed.query.order_by(Feed.date.desc(), Feed.feed_num.desc())
+        rows = q.offset(offset).limit(PER_PAGE + 1).all()
+
+        has_more = len(rows) > PER_PAGE
+        rows = rows[:PER_PAGE]
+
+        return render_template(
+            "feed_list.html",
+            rows=rows,
+            page=page,
+            has_more=has_more,
+        )
 
     # New feed entry form
     @app.get("/feed/new")

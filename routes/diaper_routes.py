@@ -8,8 +8,22 @@ def init_diaper_routes(app):
     # Show history of diapers
     @app.get("/diaper")
     def diaper_list():
-        rows = Diaper.query.order_by(Diaper.dt.desc()).all()
-        return render_template("diaper_list.html", rows=rows)
+        PER_PAGE = 5
+        page = request.args.get("page", default=0, type=int)
+        offset = page * PER_PAGE
+
+        q = Diaper.query.order_by(Diaper.dt.desc())
+        rows = q.offset(offset).limit(PER_PAGE + 1).all()
+
+        has_more = len(rows) > PER_PAGE
+        rows = rows[:PER_PAGE]
+
+        return render_template(
+            "diaper_list.html",
+            rows=rows,
+            page=page,
+            has_more=has_more,
+        )
 
     # New diaper entry form
     @app.get("/diaper/new")
