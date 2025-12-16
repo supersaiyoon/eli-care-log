@@ -11,65 +11,86 @@ from routes.feed_routes import init_feed_routes
 from routes.medication_routes import init_medication_routes
 from routes.sleep_routes import init_sleep_routes
 from routes.vomit_routes import init_vomit_routes
+from ui_themes import PAGE_THEMES
 
 
-# App + config
-app = Flask(__name__)
+def build_db_path():
+    # Dev default (local folder)
+    default_db_dir = "db"
+    database_dir = os.environ.get("ELI_DB_DIR", default_db_dir)
 
-# Database path
-DEFAULT_DB_DIR = "db"  # Dev default (local folder)
-DATABASE_DIR = os.environ.get("ELI_DB_DIR", DEFAULT_DB_DIR)
+    # If running in Docker, use container path unless overridden
+    if os.path.exists("/.dockerenv") and "ELI_DB_DIR" not in os.environ:
+        database_dir = "/app/db"
+    
+    # Ensure db dir exists
+    os.makedirs(database_dir, exist_ok=True)
 
-# If running in Docker, use container path unless overridden
-if os.path.exists("/.dockerenv") and "ELI_DB_DIR" not in os.environ:
-    DATABASE_DIR = "/app/db"
+    db_file = "eli_care_log.db"
+    db_path = os.path.abspath(os.path.join(database_dir, db_file))
 
-DATABASE_FILE = "eli_care_log.db"
-DATABASE_PATH = os.path.abspath(os.path.join(DATABASE_DIR, DATABASE_FILE))
-db_uri_path = DATABASE_PATH.replace("\\", "/")
+    # SQLAlchemy wants forward slashes even on Windows
+    db_uri_path = db_path.replace("\\", "/")
 
-# Ensure db dir exists
-os.makedirs(DATABASE_DIR, exist_ok=True)
+    return db_uri_path
 
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_uri_path}"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+def create_app():
+    app = Flask(__name__)
 
+    # Config
+    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev")
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{build_db_path()}"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Bind db to app
-db.init_app(app)
+    # Extensions
+    db.init_app(app)
 
-# Register routes
-init_diaper_routes(app)
-init_feed_routes(app)
-init_medication_routes(app)
-init_sleep_routes(app)
-init_vomit_routes(app)
+    # Template helpers
+    register_template_helpers(app)
 
+    # Routes
+    register_routes(app)
 
-def init_db():
-    # Ensure we have app context when touching db
+    # Startup tasks
+    init_db(app)
+
+    return app
+
+def register_template_helpers(app):
+    @app.context_processor
+    def inject_page_theme():
+        def get_theme(page_key):
+            return PAGE_THEMES.get(page_key)
+        return {"get_theme": get_theme}
+
+    @app.template_filter("minutes_to_hhmm")
+    def minutes_to_hhmm(total_minutes):
+        if total_minutes is None:
+            return ""
+        
+        hours = total_minutes // 60
+        minutes = total_minutes % 60
+        
+        return f"{hours:02d}:{minutes:02d}"
+
+def register_routes(app):
+    init_diaper_routes(app)
+    init_feed_routes(app)
+    init_medication_routes(app)
+    init_sleep_routes(app)
+    init_vomit_routes(app)
+
+    # Homepage
+    @app.get("/")
+    def dashboard():
+        return render_template("dashboard.html")
+
+def init_db(app):
     with app.app_context():
         db.create_all()
 
-# Run once at startup (both dev and container)
-init_db()
 
-
-# Helper functions
-@app.template_filter("minutes_to_hhmm")
-def minutes_to_hhmm(total_minutes):
-    if total_minutes is None:
-        return ""
-    
-    hours = total_minutes // 60
-    minutes = total_minutes % 60
-    
-    return f"{hours:02d}:{minutes:02d}"
-
-@app.get("/")
-def dashboard():
-    return render_template("dashboard.html")
+app = create_app()
 
 
 # Dev server entry point.
