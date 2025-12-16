@@ -23,12 +23,16 @@ def init_diaper_routes(app):
             rows=rows,
             page=page,
             has_more=has_more,
+            page_key="diaper"
         )
 
     # New diaper entry form
     @app.get("/diaper/new")
     def diaper_new():
-        return render_template("diaper_new.html")
+        return render_template(
+            "diaper_new.html",
+            page_key="diaper"
+        )
 
     # Create new diaper entry
     @app.post("/diaper/new")
@@ -59,7 +63,10 @@ def init_diaper_routes(app):
     @app.get("/diaper/<int:diaper_id>/edit")
     def diaper_edit(diaper_id):
         row = Diaper.query.get_or_404(diaper_id)
-        return render_template("diaper_edit.html", row=row)
+        return render_template("diaper_edit.html",
+                               row=row,
+                               page_key="diaper"
+                        )
 
     # Update from editing diaper entry
     @app.post("/diaper/<int:diaper_id>/edit")
