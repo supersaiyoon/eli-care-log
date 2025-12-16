@@ -37,9 +37,78 @@
             .accent-vomit { border-left-color: #dc3545; }      /* red */
         </style>
 
+        {% if page_key %}
+            {% set theme = get_theme(page_key) %}
+        {% endif %}
+
+        {% if theme %}
+        <style>
+            :root {
+                {% for var, value in theme.vars.items() %}
+                    {{ var }}: {{ value }};
+                {% endfor %}
+            }
+
+            /* Page */
+            html, body {
+                background-color: var(--app-bg) !important;
+                color: var(--app-text) !important;
+            }
+
+            /* Main content wrapper sometimes looks white due to page bg + spacing */
+            main.container {
+                background: transparent !important;
+            }
+
+            /* Cards */
+            .card {
+                background-color: var(--app-card-bg) !important;
+                color: var(--app-text) !important;
+                border-color: var(--app-border) !important;
+            }
+
+            .card-header {
+                background-color: var(--app-card-header-bg) !important;
+                color: var(--app-text) !important;
+                border-bottom-color: var(--app-border) !important;
+            }
+
+            .card-body {
+                background-color: transparent !important;
+            }
+
+            /* Accent stripe */
+            .accent-border {
+                border-left: 4px solid var(--app-accent) !important;
+            }
+
+            /* Muted text that becomes unreadable on dark themes */
+            .text-muted {
+                color: rgba(238, 222, 180, 0.75) !important;
+            }
+        </style>
+        {% endif %}
+
     </head>
 
-    <body class="bg-light">
+    <body>
+        {% if theme %}
+        <div style="
+            position: fixed;
+            bottom: 12px;
+            right: 12px;
+            opacity: 0.85;
+            z-index: 1000;
+        ">
+            <img
+            src="{{ url_for('static', filename=theme.icon) }}"
+            alt="{{ theme.name }}"
+            width="48"
+            height="48"
+            >
+        </div>
+        {% endif %}
+        
         <nav class="navbar navbar-dark bg-dark mb-4">
             <div class="container d-flex flex-column align-items-start gap-2">
                 <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
@@ -61,8 +130,6 @@
                     <a class="btn btn-light btn-sm" href="{{ url_for('sleep_new') }}">+ Sleep</a>
                     <a class="btn btn-light btn-sm" href="{{ url_for('medication_new') }}">+ Medication</a>
                 </div>
-            </div>
-
             </div>
         </nav>
 

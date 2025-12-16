@@ -3,9 +3,12 @@ PAGE_THEMES = {
         "name": "Stunky",
         "icon": "theme_icons/stunky.png",
         "vars": {
-            "--app-accent": "#7c3aed",
-            "--app-accent-soft": "ede9fe",
-            "--app-accent-border": "#a78bfa",
+            "--app-bg": "#4a395a",
+            "--app-card-bg": "#6a528b",
+            "--app-card-header-bg": "#5b4776",
+            "--app-text": "#eedeb4",
+            "--app-accent": "#eedeb4",
+            "--app-border": "#3d2f4a",
         },
     },
 }
