@@ -24,6 +24,7 @@ def init_sleep_routes(app):
             rows=rows,
             page=page,
             has_more=has_more,
+            page_key="sleep",
         )
 
     # New sleep entry form
@@ -35,6 +36,7 @@ def init_sleep_routes(app):
         return render_template(
             "sleep_new.html",
             today=today,
+            page_key="sleep",
         )
 
     # Create new sleep entry
@@ -86,7 +88,11 @@ def init_sleep_routes(app):
     @app.get("/sleep/<int:sleep_id>/edit")
     def sleep_edit(sleep_id):
         row = Sleep.query.get_or_404(sleep_id)
-        return render_template("sleep_edit.html", row=row)
+        return render_template(
+            "sleep_edit.html",
+            row=row,
+            page_key="sleep",
+            )
 
     # Update from editing sleep entry
     @app.post("/sleep/<int:sleep_id>/edit")
