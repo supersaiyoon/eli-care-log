@@ -13,6 +13,23 @@ PAGE_THEMES = {
             "--app-accent": "#eedeb4",
         },
     },
+
+    "feed": {
+        "name": "Miltank",
+        "icon": "theme_icons/miltank.png",
+        "vars": {
+            "--app-bg": "#4a4a4a",
+            "--app-card-bg": "#f8c3b6",
+            "--app-card-header-bg": "#f2b8ab",
+            "--app-surface-elevated": "#e6a99e",
+            "--app-page-title": "#ffeeb4",
+            "--app-border": "#262626",
+            "--app-text": "#2b2b2b",
+            "--app-text-muted": "#5a5a5a",
+            "--app-accent": "#f6b4a4",
+        },
+    },
+
     "sleep": {
         "name": "Snorlax",
         "icon": "theme_icons/snorlax.png",

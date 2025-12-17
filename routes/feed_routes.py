@@ -25,6 +25,7 @@ def init_feed_routes(app):
             rows=rows,
             page=page,
             has_more=has_more,
+            page_key="feed",
         )
 
     # New feed entry form
@@ -43,7 +44,8 @@ def init_feed_routes(app):
         return render_template(
             "feed_new.html",
             today=today,
-            next_feed_num=next_feed_num
+            next_feed_num=next_feed_num,
+            page_key="feed",
         )
 
     # Create new feed entry
@@ -90,7 +92,11 @@ def init_feed_routes(app):
     @app.get("/feed/<int:feed_id>/edit")
     def feed_edit(feed_id):
         row = Feed.query.get_or_404(feed_id)
-        return render_template("feed_edit.html", row=row)
+        return render_template(
+            "feed_edit.html",
+            row=row,
+            page_key="feed",
+        )
 
     # Update from editing feed entry
     @app.post("/feed/<int:feed_id>/edit")
