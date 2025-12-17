@@ -30,6 +30,21 @@ PAGE_THEMES = {
         },
     },
 
+    "medication": {
+        "name": "Blissey",
+        "icon": "theme_icons/blissey.png",
+        "vars": {
+            "--app-bg": "#ecdcec",
+            "--app-card-bg": "#e8cfe8",
+            "--app-card-header-bg": "#dec1de",
+            "--app-surface-elevated": "#d3b2d3",
+            "--app-border": "#8a4f8f",
+            "--app-text": "#3a2e3a",
+            "--app-text-muted": "#6b5a6b",
+            "--app-accent": "#bd7bbd",
+        },
+    },
+
     "sleep": {
         "name": "Snorlax",
         "icon": "theme_icons/snorlax.png",

@@ -23,12 +23,16 @@ def init_medication_routes(app):
             rows=rows,
             page=page,
             has_more=has_more,
+            page_key="medication",
         )
     
     # New medication entry form
     @app.get("/medication/new")
     def medication_new():
-        return render_template("medication_new.html")
+        return render_template(
+            "medication_new.html",
+            page_key="medication",
+            )
 
     # Create new medication entry
     @app.post("/medication/new")
@@ -61,7 +65,11 @@ def init_medication_routes(app):
     @app.get("/medication/<int:medication_id>/edit")
     def medication_edit(medication_id):
         row = Medication.query.get_or_404(medication_id)
-        return render_template("medication_edit.html", row=row)
+        return render_template(
+            "medication_edit.html",
+            row=row,
+            page_key="medication",
+            )
     
     # Update from editing medication entry
     @app.post("/medication/<int:medication_id>/edit")
