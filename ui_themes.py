@@ -26,7 +26,7 @@ PAGE_THEMES = {
             "--app-border": "#262626",
             "--app-text": "#2b2b2b",
             "--app-text-muted": "#5a5a5a",
-            "--app-accent": "#f6b4a4",
+            "--app-accent": "#e07a63",
         },
     },
 
