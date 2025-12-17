@@ -45,4 +45,19 @@ PAGE_THEMES = {
         },
     },
 
+    "vomit": {
+        "name": "Alolan Muk",
+        "icon": "theme_icons/alolan_muk.png",
+        "vars": {
+            "--app-bg": "#3f6f5e",
+            "--app-card-bg": "#5c66b0",
+            "--app-card-header-bg": "#5560a6",
+            "--app-surface-elevated": "#4b5596",
+            "--app-border": "#2c4a40",
+            "--app-text": "#f2eddc",
+            "--app-text-muted": "#d6d0b8",
+            "--app-accent": "#f091d3",
+        },
+    }
+
 }

@@ -25,12 +25,16 @@ def init_vomit_routes(app):
             rows=rows,
             page=page,
             has_more=has_more,
+            page_key="vomit",
         )
 
     # New vomit entry form
     @app.get("/vomit/new")
     def vomit_new():
-        return render_template("vomit_new.html")
+        return render_template(
+            "vomit_new.html",
+            page_key="vomit",
+            )
 
     # Create new vomit entry
     @app.post("/vomit/new")
@@ -64,7 +68,11 @@ def init_vomit_routes(app):
     @app.get("/vomit/<int:vomit_id>/edit")
     def vomit_edit(vomit_id):
         row = Vomit.query.get_or_404(vomit_id)
-        return render_template("vomit_edit.html", row=row)
+        return render_template(
+            "vomit_edit.html",
+            row=row,
+            page_key="vomit"
+            )
     
     # Update from editing vomit entry
     @app.post("/vomit/<int:vomit_id>/edit")
