@@ -11,11 +11,12 @@
                 bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: #007bff;
-                color: white;
+                background: var(--app-surface-elevated);
+                color: var(--app-text);
                 padding: 10px 16px;
+                border: 1px solid var(--app-border);
                 border-radius: 6px;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.35);
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 0.4s ease;
@@ -84,7 +85,18 @@
 
             /* Muted text that becomes unreadable on dark themes */
             .text-muted {
-                color: rgba(238, 222, 180, 0.75) !important;
+                color: var(--app-text-muted) !important;
+            }
+
+            /* Theme the outline primary buttons (See more, etc.) */
+            .btn-outline-primary {
+                color: var(--app-accent) !important;
+                border-color: var(--app-accent) !important;
+            }
+
+            .btn-outline-primary:hover {
+                background-color: var(--app-accent) !important;
+                color: var(--app-card-bg) !important;
             }
         </style>
         {% endif %}
