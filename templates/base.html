@@ -1,5 +1,18 @@
 <!doctype html>
-<html>
+
+{% if page_key %}
+    {% set theme = get_theme(page_key) %}
+{% endif %}
+
+<html
+    {% if theme %}
+    style="
+        {% for var, value in theme.vars.items() %}
+            {{ var }}: {{ value }};
+        {% endfor %}
+    "
+    {% endif %}
+>
     <head>
         <meta charset="utf-8">
         <title>Eli's Care Log</title>
@@ -26,18 +39,8 @@
             }
         </style>
         
-        {% if page_key %}
-            {% set theme = get_theme(page_key) %}
-        {% endif %}
-
         {% if theme %}
         <style>
-            :root {
-                {% for var, value in theme.vars.items() %}
-                    {{ var }}: {{ value }};
-                {% endfor %}
-            }
-
             /* Page */
             html, body {
                 background-color: var(--app-bg) !important;
