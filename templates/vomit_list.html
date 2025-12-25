@@ -47,7 +47,7 @@
 
                     <div class="col-6 col-md-4">
                         <div class="text-muted small">Feed rate</div>
-                        <div>{{ v.feed_rate }} <span class="text-muted">mL/hr</span></div>
+                        <div>{{ v.feed_rate if v.feed_rate is not none else "None" }} <span class="text-muted">mL/hr</span></div>
                     </div>
 
                     {% if v.vomit_reason %}

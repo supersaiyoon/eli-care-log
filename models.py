@@ -74,7 +74,7 @@ class Vomit(db.Model):
         Enum("S", "M", "L", name="vomit_size"),
         nullable=False
     )
-    feed_rate = db.Column(db.Integer, nullable=False)
+    feed_rate = db.Column(db.Integer, nullable=True)
     vomit_reason = db.Column(db.Text)
 
 # TODO: Implement weekly tasks tracker model (trach change, G-tube balloon check, etc.)
