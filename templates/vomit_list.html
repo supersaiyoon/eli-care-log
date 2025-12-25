@@ -2,6 +2,12 @@
 {% block body %}
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">Vomits</h3>
+
+        <a href="{{ url_for('vomit_new') }}"
+           class="btn btn-new-entry"
+           aria-label="New Vomit">
+           +
+        </a>
     </div>
 
     <div class="vstack gap-3">
