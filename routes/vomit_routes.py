@@ -90,7 +90,8 @@ def init_vomit_routes(app):
         dt = datetime.fromisoformat(dt_str)
 
         # Ensure inputs are stored as integers
-        feed_rate = int(feed_rate)
+        feed_rate_raw = request.form["feed_rate"].strip()
+        feed_rate = int(feed_rate_raw) if feed_rate_raw else None
 
         # Apply updates
         row.dt = dt
