@@ -94,9 +94,27 @@
                 background-color: var(--app-accent) !important;
                 color: var(--app-card-bg) !important;
             }
+
+            .btn-outline-secondary {
+                color: var(--app-page-title) !important;
+                border-color: var(--app-border) !important;
+            }
+
+            .btn-outline-secondary:hover {
+                background-color: var(--app-surface-elevated) !important;
+            }
+
+            /* Forms */
+            .form-label {
+                color: var(--app-form-label, var(--app-text)) !important;
+            }
+
+            .form-control::placeholder,
+            textarea::placeholder {
+                color: var(--app-text-muted) !important;
+            }
         </style>
         {% endif %}
-
     </head>
 
     <body>

@@ -21,6 +21,7 @@ PAGE_THEMES = {
             "--app-bg": "#4a4a4a",
             "--app-card-bg": "#f8c3b6",
             "--app-card-header-bg": "#f2b8ab",
+            "--app-form-label": "#ffeeb4",
             "--app-surface-elevated": "#e6a99e",
             "--app-page-title": "#ffeeb4",
             "--app-border": "#262626",
