@@ -167,12 +167,12 @@
                 <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
 
                 <!-- LIST LINKS -->
-                <div class="d-flex gap-2 flex-wrap">
-                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('diaper_list') }}">Diapers</a>
-                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('feed_list') }}">Feeds</a>
-                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('vomit_list') }}">Vomits</a>
-                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('sleep_list') }}">Sleep</a>
-                    <a class="btn btn-outline-light btn-sm" href="{{ url_for('medication_list') }}">Medications</a>
+                <div class="d-flex flex-wrap w-100">
+                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('diaper_list') }}">Diapers</a>
+                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('feed_list') }}">Feeds</a>
+                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('vomit_list') }}">Vomits</a>
+                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('sleep_list') }}">Sleep</a>
+                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('medication_list') }}">Medications</a>
                 </div>
             </div>
         </nav>
