@@ -1,12 +1,12 @@
 # stdlib
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 import os
 
 # Third-party
 from flask import Flask, render_template
 
 # Local
-from models import db, Diaper
+from models import db, Diaper, Feed
 from routes.diaper_routes import init_diaper_routes
 from routes.feed_routes import init_feed_routes
 from routes.medication_routes import init_medication_routes
@@ -110,7 +110,7 @@ def register_routes(app):
                 return "BM"
             return "Unknown"
 
-        # Last diaper
+        # Diaper stats for dashboard
         last_diaper = (
             Diaper.query
             .order_by(Diaper.dt.desc())
@@ -141,6 +141,33 @@ def register_routes(app):
             .count()
         )
 
+        # Avg feed duration (last 10 completed feeds) for dashboard
+        recent_feeds = (
+            Feed.query
+            .filter(Feed.end_time.isnot(None))
+            .order_by(Feed.date.desc(), Feed.feed_num.desc())
+            .limit(10)
+            .all()
+        )
+
+        durations_min = []
+        for f in recent_feeds:
+            start_dt = datetime.combine(f.date, f.start_time)
+            end_dt = datetime.combine(f.date, f.end_time)
+
+            # Handle feed crossing midnight
+            if end_dt <= start_dt:
+                end_dt += timedelta(days=1)
+
+            minutes = int((end_dt - start_dt).total_seconds() // 60)
+            durations_min.append(minutes)
+
+        avg_feed_duration_min = None
+
+        if durations_min:
+            avg_feed_duration_min = sum(durations_min) // len(durations_min)
+
+
         return render_template(
             "dashboard.html",
             last_diaper=last_diaper,
@@ -148,6 +175,7 @@ def register_routes(app):
             last_diaper_type=last_diaper_type,
             wet_count=wet_count,
             bm_count=bm_count,
+            avg_feed_duration_min=avg_feed_duration_min,
         )
 
 

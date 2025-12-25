@@ -1,32 +1,48 @@
 {% extends "base.html" %}
 {% block body %}
     <h3 class="mb-3">Dashboard</h3>
-    <div class="card shadow-sm">
-        <div class="card-header">
-            🧷 Diaper status
+    <div class="vstack gap-3">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                🧷 Diaper status
+            </div>
+
+            <div class="card-body">
+                {% if last_diaper %}
+                    <div class="fw-semibold">
+                        Last diaper: {{ last_diaper_ago }}
+                    </div>
+                    <div class="text-muted">
+                        Type: {{ last_diaper_type }}
+                    </div>
+                {% else %}
+                    <div class="text-muted">
+                        No diaper entries yet.
+                    </div>
+                {% endif %}
+
+                <hr>
+
+                <div>
+                    Wet today: <strong>{{ wet_count }}</strong>
+                </div>
+                <div>
+                    BM today: <strong>{{ bm_count }}</strong>
+                </div>
+            </div>
         </div>
 
-        <div class="card-body">
-            {% if last_diaper %}
-                <div class="fw-semibold">
-                    Last diaper: {{ last_diaper_ago }}
-                </div>
-                <div class="text-muted">
-                    Type: {{ last_diaper_type }}
-                </div>
-            {% else %}
-                <div class="text-muted">
-                    No diaper entries yet.
-                </div>
-            {% endif %}
-
-            <hr>
-
-            <div>
-                Wet today: <strong>{{ wet_count }}</strong>
+        <div class="card shadow-sm">
+            <div class="card-header">
+                🍼 Feed status
             </div>
-            <div>
-                BM today: <strong>{{ bm_count }}</strong>
+
+            <div class="card-body">
+                {% if avg_feed_duration_min is not none %}
+                    <div>Avg feed duration (last 10): <strong>{{ avg_feed_duration_min | minutes_to_hhmm }}</strong></div>
+                {% else %}
+                    <div class="text-muted">Avg feed duration (last 10): n/a</div>
+                {% endif %}
             </div>
         </div>
     </div>
