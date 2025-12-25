@@ -54,10 +54,10 @@
                     <div class="col-12 col-md-6">
                         <div class="text-muted small">Time</div>
                         <div>
-                            {{ f.start_time.strftime('%H:%M') if f.start_time else '' }}
+                            <span class="mono">{{ f.start_time.strftime('%H:%M') if f.start_time else '' }}</span>
                             <span class="text-muted mx-1">to</span>
                             {% if f.end_time %}
-                                {{ f.end_time.strftime('%H:%M') }}
+                                <span class="mono">{{ f.end_time.strftime('%H:%M') }}</span>
                             {% else %}
                                 <span class="text-muted">TBD</span>
                             {% endif %}
@@ -68,7 +68,8 @@
                         <div class="text-muted small">Volume</div>
                         <div>
                             {% if f.feed_vol_ml is not none %}
-                                {{ f.feed_vol_ml }} <span class="text-muted">mL</span>
+                                <span class="mono">{{ f.feed_vol_ml }}</span>
+                                <span class="text-muted">mL</span>
                             {% else %}
                                 <span class="text-muted">TBD</span>
                             {% endif %}
@@ -79,7 +80,8 @@
                         <div class="text-muted small">Rate</div>
                         <div>
                             {% if f.feed_rate is not none %}
-                                {{ f.feed_rate }} <span class="text-muted">mL/hr</span>
+                                <span class="mono">{{ f.feed_rate }}</span>
+                                <span class="text-muted">mL/hr</span>
                             {% else %}
                                 <span class="text-muted">--</span>
                             {% endif %}

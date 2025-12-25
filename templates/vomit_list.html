@@ -49,9 +49,10 @@
                         <div class="text-muted small">Feed rate</div>
                         <div>
                             {% if v.feed_rate is not none %}
-                                {{ v.feed_rate }} <span class="text-muted">mL/hr</span>
+                                <span class="mono">{{ v.feed_rate }}</span>
+                                <span class="text-muted">mL/hr</span>
                             {% else %}
-                                None
+                                <span class="text-muted">None</span>
                             {% endif %}
                         </div>
                     </div>

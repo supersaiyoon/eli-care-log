@@ -84,19 +84,20 @@ def register_routes(app):
     # Homepage
     @app.get("/")
     def dashboard():
-        def minutes_ago(dt):
+        def time_ago_parts(dt):
             delta = datetime.now() - dt
             minutes = int(delta.total_seconds() // 60)
 
             if minutes < 1:
-                return "just now"
+                return {"label": "just now", "num": None, "unit": None}
+
             if minutes < 60:
-                return f"{minutes} min ago"
+                return {"label": None, "num": minutes, "unit": "minutes"}
 
             hours = minutes // 60
-            if hours == 1:
-                return "1 hr ago"
-            return f"{hours} hrs ago"
+            unit = "hour" if hours == 1 else "hours"
+
+            return {"label": None, "num": hours, "unit": unit}
 
         def diaper_type_label(d):
             wet = d.wet_diaper_size is not None
@@ -108,6 +109,7 @@ def register_routes(app):
                 return "Wet"
             if bm:
                 return "BM"
+            
             return "Unknown"
 
         # Diaper stats for dashboard
@@ -117,7 +119,7 @@ def register_routes(app):
             .first()
         )
 
-        last_diaper_ago = minutes_ago(last_diaper.dt) if last_diaper else None
+        last_diaper_ago = time_ago_parts(last_diaper.dt) if last_diaper else None
         last_diaper_type = diaper_type_label(last_diaper) if last_diaper else None
 
         # Today's counts (resets at local midnight)
@@ -171,7 +173,9 @@ def register_routes(app):
         return render_template(
             "dashboard.html",
             last_diaper=last_diaper,
-            last_diaper_ago=last_diaper_ago,
+            last_diaper_ago_label=last_diaper_ago["label"] if last_diaper_ago else None,
+            last_diaper_ago_num=last_diaper_ago["num"] if last_diaper_ago else None,
+            last_diaper_ago_unit=last_diaper_ago["unit"] if last_diaper_ago else None,
             last_diaper_type=last_diaper_type,
             wet_count=wet_count,
             bm_count=bm_count,
