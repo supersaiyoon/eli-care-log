@@ -1,4 +1,19 @@
 PAGE_THEMES = {
+    "dashboard": {
+        "name": "Squirtle",
+        "icon": "theme_icons/squirtle.png",
+        "vars": {
+            "--app-bg": "#1f5f6b",
+            "--app-card-bg": "#539ea8",
+            "--app-card-header-bg": "#3f8a94",
+            "--app-surface-elevated": "#357b85",
+            "--app-border": "#143f47",
+            "--app-text": "#f2f8f9",
+            "--app-text-muted": "#d1e6ea",
+            "--app-accent": "#e6ac5a",
+        },
+    },
+
     "diaper": {
         "name": "Stunky",
         "icon": "theme_icons/stunky.png",

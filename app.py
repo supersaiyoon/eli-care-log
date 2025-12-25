@@ -176,6 +176,7 @@ def register_routes(app):
             wet_count=wet_count,
             bm_count=bm_count,
             avg_feed_duration_min=avg_feed_duration_min,
+            page_key="dashboard",
         )
 
 
