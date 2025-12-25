@@ -1,5 +1,33 @@
 {% extends "base.html" %}
 {% block body %}
     <h3 class="mb-3">Dashboard</h3>
-    <p class="text-muted">Stats coming soon.</p>
+    <div class="card shadow-sm">
+        <div class="card-header">
+            🧷 Diaper status
+        </div>
+
+        <div class="card-body">
+            {% if last_diaper %}
+                <div class="fw-semibold">
+                    Last diaper: {{ last_diaper_ago }}
+                </div>
+                <div class="text-muted">
+                    Type: {{ last_diaper_type }}
+                </div>
+            {% else %}
+                <div class="text-muted">
+                    No diaper entries yet.
+                </div>
+            {% endif %}
+
+            <hr>
+
+            <div>
+                Wet today: <strong>{{ wet_count }}</strong>
+            </div>
+            <div>
+                BM today: <strong>{{ bm_count }}</strong>
+            </div>
+        </div>
+    </div>
 {% endblock %}

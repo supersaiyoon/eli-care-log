@@ -1,11 +1,12 @@
 # stdlib
+from datetime import datetime, time
 import os
 
 # Third-party
 from flask import Flask, render_template
 
 # Local
-from models import db
+from models import db, Diaper
 from routes.diaper_routes import init_diaper_routes
 from routes.feed_routes import init_feed_routes
 from routes.medication_routes import init_medication_routes
@@ -83,7 +84,72 @@ def register_routes(app):
     # Homepage
     @app.get("/")
     def dashboard():
-        return render_template("dashboard.html")
+        def minutes_ago(dt):
+            delta = datetime.now() - dt
+            minutes = int(delta.total_seconds() // 60)
+
+            if minutes < 1:
+                return "just now"
+            if minutes < 60:
+                return f"{minutes} min ago"
+
+            hours = minutes // 60
+            if hours == 1:
+                return "1 hr ago"
+            return f"{hours} hrs ago"
+
+        def diaper_type_label(d):
+            wet = d.wet_diaper_size is not None
+            bm = d.bm_diaper_size is not None
+
+            if wet and bm:
+                return "Wet + BM"
+            if wet:
+                return "Wet"
+            if bm:
+                return "BM"
+            return "Unknown"
+
+        # Last diaper
+        last_diaper = (
+            Diaper.query
+            .order_by(Diaper.dt.desc())
+            .first()
+        )
+
+        last_diaper_ago = minutes_ago(last_diaper.dt) if last_diaper else None
+        last_diaper_type = diaper_type_label(last_diaper) if last_diaper else None
+
+        # Today's counts (resets at local midnight)
+        today_start = datetime.combine(datetime.today().date(), time.min)
+
+        wet_count = (
+            Diaper.query
+            .filter(
+                Diaper.dt >= today_start,
+                Diaper.wet_diaper_size.isnot(None),
+            )
+            .count()
+        )
+
+        bm_count = (
+            Diaper.query
+            .filter(
+                Diaper.dt >= today_start,
+                Diaper.bm_diaper_size.isnot(None),
+            )
+            .count()
+        )
+
+        return render_template(
+            "dashboard.html",
+            last_diaper=last_diaper,
+            last_diaper_ago=last_diaper_ago,
+            last_diaper_type=last_diaper_type,
+            wet_count=wet_count,
+            bm_count=bm_count,
+        )
+
 
 def init_db(app):
     with app.app_context():
