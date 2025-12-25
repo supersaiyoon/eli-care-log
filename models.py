@@ -31,6 +31,14 @@ class Feed(db.Model):
     feed_rate = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text)
 
+    @property
+    def status(self):
+        if self.end_time is None:
+            return "in progress"
+        if self.feed_vol_ml is None:
+            return "incomplete"
+        return "complete"
+
 class Medication(db.Model):
     __tablename__ = "medication"
 
@@ -50,6 +58,12 @@ class Sleep(db.Model):
     end_time = db.Column(db.Time, nullable=True)
     sleep_duration_min = db.Column(db.Integer, nullable=True)
     notes = db.Column(db.Text)
+
+    @property
+    def status(self):
+        if self.end_time is None:
+            return "in progress"
+        return "complete"
 
 class Vomit(db.Model):
     __tablename__ = "vomit"
