@@ -41,6 +41,51 @@
         
         {% if theme %}
         <style>
+            /* Navbar */
+            :root {
+                --nav-bg: #1e1e1e;
+                --nav-text: #e6e6e6;
+                --nav-text-muted: #bdbdbd;
+                --nav-accent: #e8dcc2;
+            }
+
+            .navbar {
+                background-color: var(--nav-bg);
+                border-bottom: 1px solid #2a2a2a;
+            }
+
+            .navbar .nav-link {
+                color: var(--nav-text);
+                opacity: 0.9;
+            }
+
+            .navbar .nav-link.active:hover {
+                background-color: #e0d2b3;
+                color: #1e1e1e;
+            }
+
+            .navbar .nav-link:hover {
+                color: var(--nav-text);
+                opacity: 1;
+            }
+        
+            .navbar .nav-link.active {
+                background-color: #e8dcc2;   /* light neutral */
+                color: #1e1e1e;              /* dark text */
+                border-bottom-color: transparent;
+                border-radius: 0.375rem;
+            }
+
+            .navbar .navbar-brand {
+                color: var(--nav-text);
+                font-weight: 600;
+                letter-spacing: 0.2px;
+            }
+
+            .navbar .navbar-brand:hover {
+                color: var(--nav-text);
+            }
+
             /* Page */
             html, body {
                 background-color: var(--app-bg) !important;
@@ -162,17 +207,26 @@
         </div>
         {% endif %}
         
-        <nav class="navbar navbar-dark bg-dark mb-4">
+        <nav class="navbar mb-4">
             <div class="container d-flex flex-column align-items-start gap-2">
                 <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
 
                 <!-- LIST LINKS -->
-                <div class="d-flex flex-wrap w-100">
-                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('diaper_list') }}">Diapers</a>
-                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('feed_list') }}">Feeds</a>
-                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('vomit_list') }}">Vomits</a>
-                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('sleep_list') }}">Sleep</a>
-                    <a class="btn btn-outline-light btn-sm flex-fill text-center" href="{{ url_for('medication_list') }}">Medications</a>
+                <div class="nav w-100">
+                    <a class="nav-link flex-fill text-center {% if page_key == 'diaper' %}active{% endif %}"
+                    href="{{ url_for('diaper_list') }}">Diapers</a>
+
+                    <a class="nav-link flex-fill text-center {% if page_key == 'feed' %}active{% endif %}"
+                    href="{{ url_for('feed_list') }}">Feeds</a>
+
+                    <a class="nav-link flex-fill text-center {% if page_key == 'vomit' %}active{% endif %}"
+                    href="{{ url_for('vomit_list') }}">Vomits</a>
+
+                    <a class="nav-link flex-fill text-center {% if page_key == 'sleep' %}active{% endif %}"
+                    href="{{ url_for('sleep_list') }}">Sleep</a>
+
+                    <a class="nav-link flex-fill text-center {% if page_key == 'medication' %}active{% endif %}"
+                    href="{{ url_for('medication_list') }}">Medications</a>
                 </div>
             </div>
         </nav>
