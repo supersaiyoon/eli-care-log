@@ -1,0 +1,38 @@
+<div id="toast"></div>
+
+<style>
+    #toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--app-surface-elevated);
+        color: var(--app-text);
+        padding: 10px 16px;
+        border: 1px solid var(--app-border);
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        z-index: 9999;
+    }
+</style>
+
+<script>
+    // show toast on page load if Flask flashed messages exist
+    window.addEventListener("DOMContentLoaded", () => {
+        const toast = document.getElementById("toast");
+        const msg = JSON.parse('{{ get_flashed_messages()|tojson|safe }}');
+
+        if (msg.length > 0) {
+            toast.textContent = msg[0];
+            toast.style.opacity = "1";
+
+            // fade out after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = "0";
+            }, 3000);
+        }
+    });
+</script>

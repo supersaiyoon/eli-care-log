@@ -1,0 +1,23 @@
+<nav class="navbar mb-4">
+    <div class="container d-flex flex-column align-items-start gap-2">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
+
+        <!-- LIST LINKS -->
+        <div class="nav w-100">
+            <a class="nav-link flex-fill text-center {% if page_key == 'diaper' %}active{% endif %}"
+            href="{{ url_for('diaper_list') }}">Diapers</a>
+
+            <a class="nav-link flex-fill text-center {% if page_key == 'feed' %}active{% endif %}"
+            href="{{ url_for('feed_list') }}">Feeds</a>
+
+            <a class="nav-link flex-fill text-center {% if page_key == 'vomit' %}active{% endif %}"
+            href="{{ url_for('vomit_list') }}">Vomits</a>
+
+            <a class="nav-link flex-fill text-center {% if page_key == 'sleep' %}active{% endif %}"
+            href="{{ url_for('sleep_list') }}">Sleep</a>
+
+            <a class="nav-link flex-fill text-center {% if page_key == 'medication' %}active{% endif %}"
+            href="{{ url_for('medication_list') }}">Medications</a>
+        </div>
+    </div>
+</nav>

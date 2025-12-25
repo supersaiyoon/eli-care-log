@@ -1,0 +1,157 @@
+{% if theme %}
+<style>
+    /* Navbar */
+    :root {
+        --nav-bg: #1e1e1e;
+        --nav-text: #e6e6e6;
+        --nav-text-muted: #bdbdbd;
+        --nav-accent: #e8dcc2;
+    }
+
+    .navbar {
+        background-color: var(--nav-bg);
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    .navbar .nav-link {
+        color: var(--nav-text);
+        opacity: 0.9;
+    }
+
+    .navbar .nav-link.active:hover {
+        background-color: #e0d2b3;
+        color: #1e1e1e;
+    }
+
+    .navbar .nav-link:hover {
+        color: var(--nav-text);
+        opacity: 1;
+    }
+
+    .navbar .nav-link.active {
+        background-color: #e8dcc2;   /* light neutral */
+        color: #1e1e1e;              /* dark text */
+        border-bottom-color: transparent;
+        border-radius: 0.375rem;
+    }
+
+    .navbar .navbar-brand {
+        color: var(--nav-text);
+        font-weight: 600;
+        letter-spacing: 0.2px;
+    }
+
+    .navbar .navbar-brand:hover {
+        color: var(--nav-text);
+    }
+
+    .mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        font-variant-numeric: tabular-nums;
+    }
+
+    body {
+        font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* Page */
+    html, body {
+        background-color: var(--app-bg) !important;
+        color: var(--app-text) !important;
+    }
+
+    .page-title {
+        color: var(--app-page-title, var(--app-text)) !important;
+    }
+
+
+    /* Main content wrapper sometimes looks white due to page bg + spacing */
+    main.container {
+        background: transparent !important;
+    }
+
+    /* Cards */
+    .card {
+        background-color: var(--app-card-bg) !important;
+        color: var(--app-text) !important;
+        border-color: var(--app-border) !important;
+    }
+
+    .card-header {
+        background-color: var(--app-card-header-bg) !important;
+        color: var(--app-text) !important;
+        border-bottom-color: var(--app-border) !important;
+    }
+
+    .card-body {
+        background-color: transparent !important;
+    }
+
+    /* Accent stripe */
+    .accent-border {
+        border-left: 4px solid var(--app-accent) !important;
+    }
+
+    /* Muted text that becomes unreadable on dark themes */
+    .text-muted {
+        color: var(--app-text-muted) !important;
+    }
+
+    /* Theme the outline primary buttons (See more, etc.) */
+    .btn-outline-primary {
+        color: var(--app-accent) !important;
+        border-color: var(--app-accent) !important;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: var(--app-accent) !important;
+        color: var(--app-card-bg) !important;
+    }
+
+    .btn-outline-secondary {
+        color: var(--app-page-title) !important;
+        border-color: var(--app-border) !important;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: var(--app-surface-elevated) !important;
+    }
+
+    /* Forms */
+    .form-label {
+        color: var(--app-form-label, var(--app-text)) !important;
+    }
+
+    .form-control::placeholder,
+    textarea::placeholder {
+        color: var(--app-text-muted) !important;
+    }
+
+    /* New Entry Button */
+    .btn-new-entry {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        font-size: 28px;
+        line-height: 1;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: var(--app-accent);
+        color: var(--app-text);
+        border: none;
+
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .btn-new-entry:hover {
+        filter: brightness(0.95);
+    }
+
+    .page-diaper .btn-new-entry {
+        color: #3a2d47;
+    }
+</style>
+{% endif %}
