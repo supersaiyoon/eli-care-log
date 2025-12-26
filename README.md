@@ -23,9 +23,9 @@ The goal was not to build a complex analytics platform, but a simple, reliable t
 - Dashboard with quick stats and recent activity
 - Diaper tracking (wet, BM, size, notes)
 - Feed tracking with:
-  - Start/end times
-  - Volume and feed rate
-  - Automatic status detection (in progress, incomplete, complete)
+    - Start/end times
+    - Volume and feed rate
+    - Automatic status detection (in progress, incomplete, complete)
 - Sleep tracking with automatic duration calculation
 - Medication logging with dosage and initials
 - Vomit tracking with size, feed rate, and notes
@@ -38,29 +38,58 @@ The goal was not to build a complex analytics platform, but a simple, reliable t
 ---
 
 ## Screenshots
+*Screenshots use sample data only.*
 
 ### Dashboard
-<img src="screenshots/dashboard.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <img src="screenshots/dashboard.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
 
 ### Diaper Log
-<img src="screenshots/diapers.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <img src="screenshots/diapers_01.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
 
-<img src="screenshots/diapers_02.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <em>Primary diaper log view.</em>
+</p>
+
+<p align="center">
+    <img src="screenshots/diapers_02.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
+
+<p align="center">
+    <em>Pagination via “See more” button for long-term, high-volume logs.</em>
+</p>
 
 ### Feed Log
-<img src="screenshots/feeds.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <img src="screenshots/feeds.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
+
+<p align="center">
+    <em>Feed entries showing status badges for in-progress and incomplete feeds. Toast notification confirming a successful feed update.</em>
+</p>
 
 ### Sleep Log
-<img src="screenshots/sleep.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <img src="screenshots/sleep.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
 
 ### Medication Log
-<img src="screenshots/medications.png" alt="Dashboard"
-     style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+<p align="center">
+    <img src="screenshots/medications.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
+
+<p align="center">
+    <em>Medication history with confirmation toast after deletion.</em>
+</p>
 
 ---
 
