@@ -71,7 +71,7 @@
     {% endfor %}
 
     {% if has_more %}
-        <div class="d-grid mt-3">
+        <div class="d-grid mt-3 mb-4">
             <a class="btn btn-see-more" href="{{ url_for(request.endpoint, page=page + 1) }}">
                 See more
             </a>
