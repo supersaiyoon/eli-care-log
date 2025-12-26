@@ -20,7 +20,7 @@
 
                 <div class="d-flex gap-2">
                     <a href="{{ url_for('vomit_edit', vomit_id=v.id) }}"
-                       class="btn btn-sm btn-outline-primary"
+                       class="btn btn-outline-secondary btn-sm action-icon-btn"
                        aria-label="Edit">
                         ✏️
                     </a>
@@ -29,7 +29,7 @@
                           method="post"
                           class="d-inline">
                         <button type="submit"
-                                class="btn btn-sm btn-outline-primary"
+                                class="btn btn-outline-danger btn-sm action-icon-btn"
                                 aria-label="Delete"
                                 onclick="return confirm('Delete this entry?');">
                             🗑

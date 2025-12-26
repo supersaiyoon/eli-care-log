@@ -20,8 +20,8 @@
                     <span class="text-muted ms-2">{{ f.date.strftime('%Y-%m-%d') }}</span>
                     {% if f.status != "complete" %}
                         <span class="badge
-                            {% if f.status == "in progress" %}bg-warning
-                            {% elif f.status == "incomplete" %}bg-danger
+                            {% if f.status == 'in progress' %}bg-warning
+                            {% elif f.status == 'incomplete' %}bg-danger
                             {% endif %}
                         ">
                             {{ f.status }}
@@ -31,7 +31,7 @@
 
                 <div class="d-flex gap-2">
                     <a href="{{ url_for('feed_edit', feed_id=f.id) }}"
-                       class="btn btn-sm btn-outline-primary"
+                       class="btn btn-outline-secondary btn-sm action-icon-btn"
                        aria-label="Edit">
                         ✏️
                     </a>
@@ -40,7 +40,7 @@
                           method="post"
                           class="d-inline">
                         <button type="submit"
-                                class="btn btn-sm btn-outline-primary"
+                                class="btn btn-outline-danger btn-sm action-icon-btn"
                                 aria-label="Delete"
                                 onclick="return confirm('Delete this entry?');">
                             🗑
