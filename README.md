@@ -6,6 +6,18 @@ It was built to be fast to use, visually clear on mobile and desktop, and reliab
 
 ---
 
+## Why This App Exists
+
+Before building Eli's Care Log, all care tracking was done manually using printed spreadsheets kept in a binder. Sheets were filled out by hand, replaced frequently as they ran out, and often torn or lost due to heavy daily use by multiple caregivers.
+
+This approach worked, but it was slow, fragile, and hard to maintain consistently.
+
+Eli's Care Log was created to replace that system with something faster, more durable, and easier to use across devices. Nurses use the app on a shared tablet during care, while my wife and I can log and review entries from our phones in real time.
+
+The goal was not to build a complex analytics platform, but a simple, reliable tool that mirrors real-world workflows while removing friction. Entries are quick to create, statuses are visually clear, and the interface stays readable even during busy or low-light situations.
+
+---
+
 ## Features
 
 - Dashboard with quick stats and recent activity
@@ -26,8 +38,6 @@ It was built to be fast to use, visually clear on mobile and desktop, and reliab
 ---
 
 ## Screenshots
-
-> Screenshots are stored in the `screenshots/` folder and referenced below.
 
 ### Dashboard
 <img src="screenshots/dashboard.png" alt="Dashboard"
