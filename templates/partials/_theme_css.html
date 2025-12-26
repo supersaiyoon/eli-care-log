@@ -56,8 +56,6 @@
     :root {
         --nav-bg: #1e1e1e;
         --nav-text: #e6e6e6;
-        --nav-text-muted: #bdbdbd;
-        --nav-accent: #e8dcc2;
     }
 
     .navbar {
@@ -93,10 +91,6 @@
         letter-spacing: 0.2px;
     }
 
-    .navbar .navbar-brand:hover {
-        color: var(--nav-text);
-    }
-
     .mono {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         font-variant-numeric: tabular-nums;
@@ -116,12 +110,6 @@
         color: var(--app-page-title, var(--app-text)) !important;
     }
 
-
-    /* Main content wrapper sometimes looks white due to page bg + spacing */
-    main.container {
-        background: transparent !important;
-    }
-
     /* Cards */
     .card {
         background-color: var(--app-card-bg) !important;
@@ -133,10 +121,6 @@
         background-color: var(--app-card-header-bg) !important;
         color: var(--app-text) !important;
         border-bottom-color: var(--app-border) !important;
-    }
-
-    .card-body {
-        background-color: transparent !important;
     }
 
     .action-icon-btn {
