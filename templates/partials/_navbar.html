@@ -1,6 +1,14 @@
 <nav class="navbar mb-4">
     <div class="container d-flex flex-column align-items-start gap-2">
-        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Eli's Care Log</a>
+        <a class="navbar-brand app-title"
+           href="{{ url_for('dashboard') }}">
+        <img
+            src="{{ url_for('static', filename='icons/pokeball.svg') }}"
+            alt=""
+            class="pokeball-icon"
+        >
+           Eli's Care Log
+        </a>
 
         <!-- LIST LINKS -->
         <div class="nav w-100">

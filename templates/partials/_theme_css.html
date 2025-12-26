@@ -1,5 +1,57 @@
 {% if theme %}
 <style>
+    @font-face {
+        font-family: "Pokemon";
+        src: url("/static/fonts/pokemon_solid.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    /* Pokeball Icon */
+    .pokeball-icon {
+        width: 35px;
+        height: 35px;
+        flex-shrink: 0;
+    }
+
+    /* App Title */
+    .navbar .navbar-brand.app-title {
+        font-family: "Pokemon", Nunito, sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-decoration: none;
+        line-height: 1;
+
+        /* Pokémon colors */
+        color: #ffcb05; /* yellow fill*/
+
+        /* blue outline */
+        text-shadow:
+            /* inner outline */
+           -1px -1px 0 #2a75bb,
+            1px -1px 0 #2a75bb,
+           -1px  1px 0 #2a75bb,
+            1px  1px 0 #2a75bb,
+
+            /* outer outline */
+           -2px -2px 0 #2a75bb,
+            2px -2px 0 #2a75bb,
+           -2px  2px 0 #2a75bb,
+            2px  2px 0 #2a75bb,
+
+            /* subtle bottom weight */
+            0px  3px 0 #2a75bb;
+
+
+        cursor: pointer;
+    }
+
+    .navbar .navbar-brand.app-title:hover {
+        color: #ffe066; /* lighter yellow */
+        opacity: 1;
+    }
+
     /* Navbar */
     :root {
         --nav-bg: #1e1e1e;
