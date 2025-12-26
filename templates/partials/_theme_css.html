@@ -199,11 +199,25 @@
     }
 
     .btn-new-entry:hover {
-        filter: brightness(0.95);
+        background-color: var(--app-surface-elevated);
     }
 
     .page-diaper .btn-new-entry {
         color: #3a2d47;
+    }
+
+    /* See More Button */
+    .btn-see-more {
+        background-color: var(--app-accent);
+        color: var(--app-text);
+        border: none;
+        font-weight: 600;
+        transition: filter 0.15s ease-in-out;
+    }
+
+    .btn-see-more:hover {
+        background-color: var(--app-accent);
+        filter: brightness(1.08);
     }
 </style>
 {% endif %}
