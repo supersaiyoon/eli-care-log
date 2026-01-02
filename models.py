@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Enum
 
@@ -38,6 +39,20 @@ class Feed(db.Model):
         if self.feed_vol_ml is None:
             return "incomplete"
         return "complete"
+    
+    @property
+    def duration_min(self):
+        if self.end_time is None:
+            return None
+
+        start_dt = datetime.combine(self.date, self.start_time)
+        end_dt = datetime.combine(self.date, self.end_time)
+
+        # Handle feed crossing midnight
+        if end_dt <= start_dt:
+            end_dt += timedelta(days=1)
+
+        return int((end_dt - start_dt).total_seconds() // 60)
 
 class Medication(db.Model):
     __tablename__ = "medication"

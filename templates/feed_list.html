@@ -51,13 +51,24 @@
 
             <div class="card-body">
                 <div class="row g-3">
-                    <div class="col-12 col-md-6">
+                    <div class="col-6 col-md-4">
                         <div class="text-muted small">Time</div>
                         <div>
                             <span class="mono">{{ f.start_time.strftime('%H:%M') if f.start_time else '' }}</span>
                             <span class="text-muted mx-1">to</span>
                             {% if f.end_time %}
                                 <span class="mono">{{ f.end_time.strftime('%H:%M') }}</span>
+                            {% else %}
+                                <span class="text-muted">TBD</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-2">
+                        <div class="text-muted small">Duration</div>
+                        <div>
+                            {% if f.duration_min is not none %}
+                                <span class="mono">{{ f.duration_min | minutes_to_hhmm }}</span>
                             {% else %}
                                 <span class="text-muted">TBD</span>
                             {% endif %}
