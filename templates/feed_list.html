@@ -19,9 +19,9 @@
                     <span class="fw-semibold">Feed #{{ f.feed_num }}</span>
                     <span class="text-muted ms-2">{{ f.date.strftime('%Y-%m-%d') }}</span>
                     {% if f.status != "complete" %}
-                        <span class="badge
-                            {% if f.status == 'in progress' %}bg-warning
-                            {% elif f.status == 'incomplete' %}bg-danger
+                        <span class="badge badge-status
+                            {% if f.status == 'in progress' %}badge-in-progress
+                            {% elif f.status == 'incomplete' %}badge-incomplete
                             {% endif %}
                         ">
                             {{ f.status }}

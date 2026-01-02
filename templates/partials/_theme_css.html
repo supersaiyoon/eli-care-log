@@ -212,5 +212,25 @@
         background-color: var(--app-accent);
         filter: brightness(1.08);
     }
+
+    /* Status Badges */
+    .badge-status {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        border: 1px solid transparent;
+    }
+
+    .badge-in-progress {
+        background-color: #ffe08a;   /* softer yellow */
+        color: #2b2b2b;              /* dark text */
+        border-color: #d1b95a;
+    }
+
+    .badge-incomplete {
+        background-color: #dc3545;   /* bootstrap danger */
+        color: #ffffff;
+        border-color: #a71d2a;
+    }
+
 </style>
 {% endif %}
