@@ -65,6 +65,16 @@ The goal was not to build a complex analytics platform, but a simple, reliable t
     <em>Pagination via “See more” button for long-term, high-volume logs.</em>
 </p>
 
+<p align="center">
+    <img src="screenshots/diapers_03_new_diaper_form.png" alt="Dashboard"
+         style="box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:6px;">
+</p>
+
+<p align="center">
+    <em>The same form layout is used across all log types, with fields tailored to each entry (e.g., medication dosage).
+</em>
+</p>
+
 ### Feed Log
 <p align="center">
     <img src="screenshots/feeds.png" alt="Dashboard"
