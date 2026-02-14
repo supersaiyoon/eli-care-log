@@ -51,5 +51,32 @@
         </main>
 
         {% include "partials/_toast.html" %}
+
+        <script>
+            const channel = new BroadcastChannel("eli-care-log");
+
+            let isPrimary = true;
+
+            // Tell other tabs we just opened
+            channel.postMessage("ping");
+
+            channel.onmessage = (event) => {
+                if (event.data === "ping") {
+                    if (isPrimary) {
+                        channel.postMessage("already-open");
+                    }
+                }
+
+                if (event.data === "already-open") {
+                    isPrimary = false;
+
+                    // Redirect to root (optional)
+                    window.location.href = "/";
+
+                    // Attempt to close self (may not always work on Android)
+                    window.close();
+                }
+            };
+        </script>
     </body>
 </html>
