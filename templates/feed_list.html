@@ -15,20 +15,25 @@
         <div class="card shadow-sm card-accent accent-border">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    🍼
-                    <span class="fw-semibold">Feed #{{ f.feed_num }}</span>
-                    <span class="text-muted ms-2">{{ f.date | format_dt }}</span>
-                    {% if f.status != "complete" %}
-                        <span class="badge badge-status
-                            {% if f.status == 'in progress' %}badge-in-progress
-                            {% elif f.status == 'incomplete' %}badge-incomplete
-                            {% endif %}
-                        ">
-                            {{ f.status }}
-                        </span>
-                    {% endif %}
-                </div>
+                    <div class="fw-semibold">
+                        🍼 {{ f.date | format_dt }}
+                    </div>
 
+                    <div class="text-muted small">
+                        Feed #{{ f.feed_num }}
+
+                        {% if f.status != "complete" %}
+                            <span class="badge badge-status ms-2
+                                {% if f.status == 'in progress' %}badge-in-progress
+                                {% elif f.status == 'incomplete' %}badge-incomplete
+                                {% endif %}
+                            ">
+                                {{ f.status }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+                
                 <div class="d-flex gap-2">
                     <a href="{{ url_for('feed_edit', feed_id=f.id) }}"
                        class="btn btn-outline-secondary btn-sm action-icon-btn"

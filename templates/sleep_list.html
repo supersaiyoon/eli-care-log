@@ -15,10 +15,17 @@
         <div class="card shadow-sm card-accent accent-border">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    😴 <span class="fw-semibold">{{ s.date | format_dt }}</span>
-                    {% if s.status == "in progress" %}
-                        <span class="badge badge-status badge-in-progress">in progress</span>
-                    {% endif %}
+                    <div class="fw-semibold">
+                        😴 {{ s.date | format_dt }}
+                    </div>
+
+                    <div class="text-muted small">
+                        {% if s.status == "in progress" %}
+                            <span class="badge badge-status badge-in-progress">
+                                in progress
+                            </span>
+                        {% endif %}
+                    </div>
                 </div>
 
                 <div class="d-flex gap-2">

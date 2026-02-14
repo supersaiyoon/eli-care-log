@@ -15,9 +15,13 @@
         <div class="card shadow-sm card-accent accent-border">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    💊
-                    <span class="fw-semibold">{{ m.med_name }}</span>
-                    <span class="text-muted ms-2">{{ m.dt | format_dt(True) }}</span>
+                    <div class="fw-semibold">
+                        💊 {{ m.dt | format_dt(True) }}
+                    </div>
+
+                    <div class="text-muted small">
+                        {{ m.med_name }}
+                    </div>
                 </div>
 
                 <div class="d-flex gap-2">
