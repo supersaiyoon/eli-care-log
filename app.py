@@ -79,12 +79,20 @@ def register_template_helpers(app):
         if dt is None:
             return ""
 
-        if show_time:
-            # Tue • Jan 14 2026 • 08:32 PM
-            return dt.strftime("%a • %b %d %Y • %I:%M %p")
+        if not show_time:
+            return dt.strftime("%a • %b %d %Y")
 
-        # Tue • Jan 14 2026
-        return dt.strftime("%a • %b %d %Y")
+        # Build time manually to avoid platform issues
+        hour = dt.hour % 12
+        if hour == 0:
+            hour = 12
+
+        minute = dt.minute
+        am_pm = "AM" if dt.hour < 12 else "PM"
+
+        date_part = dt.strftime("%a • %b %d %Y")
+
+        return f"{date_part} • {hour}:{minute:02d} {am_pm}"
 
 
 def register_routes(app):
