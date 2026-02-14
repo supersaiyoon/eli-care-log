@@ -17,7 +17,7 @@
                 <div>
                     🍼
                     <span class="fw-semibold">Feed #{{ f.feed_num }}</span>
-                    <span class="text-muted ms-2">{{ f.date.strftime('%Y-%m-%d') }}</span>
+                    <span class="text-muted ms-2">{{ f.date | format_dt }}</span>
                     {% if f.status != "complete" %}
                         <span class="badge badge-status
                             {% if f.status == 'in progress' %}badge-in-progress

@@ -73,6 +73,19 @@ def register_template_helpers(app):
         minutes = total_minutes % 60
         
         return f"{hours:02d}:{minutes:02d}"
+    
+    @app.template_filter("format_dt")
+    def format_dt(dt, show_time=False):
+        if dt is None:
+            return ""
+
+        if show_time:
+            # Tue • Jan 14 2026 • 08:32 PM
+            return dt.strftime("%a • %b %d %Y • %I:%M %p")
+
+        # Tue • Jan 14 2026
+        return dt.strftime("%a • %b %d %Y")
+
 
 def register_routes(app):
     init_diaper_routes(app)

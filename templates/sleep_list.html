@@ -15,7 +15,7 @@
         <div class="card shadow-sm card-accent accent-border">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    😴 <span class="fw-semibold">{{ s.date.strftime('%Y-%m-%d') }}</span>
+                    😴 <span class="fw-semibold">{{ s.date | format_dt }}</span>
                     {% if s.status == "in progress" %}
                         <span class="badge badge-status badge-in-progress">in progress</span>
                     {% endif %}
